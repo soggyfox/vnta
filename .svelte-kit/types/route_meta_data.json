@@ -1,4 +1,9 @@
 {
-	"/": [],
-	"/pricing": []
+	"/": [
+		"src/routes/+layout.ts",
+		"src/routes/+layout.ts"
+	],
+	"/pricing": [
+		"src/routes/+layout.ts"
+	]
 }

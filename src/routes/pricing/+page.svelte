@@ -71,8 +71,8 @@
 	<header class="header">
 		<a href="/" class="logo-link">
 			<picture class="logo">
-				<source srcset="/MAIN LIGHT.png" media="(prefers-color-scheme: dark)" />
-				<img src="/MAIN DARK.png" alt="VNTA" width="120" height="120" />
+				<source srcset="/main-light.png" media="(prefers-color-scheme: dark)" />
+				<img src="/main-dark.png" alt="VNTA" width="120" height="120" />
 			</picture>
 		</a>
 	</header>
@@ -124,8 +124,8 @@
 		<div class="footer-section">
 			<a href="/" class="secondary-logo-link">
 				<picture class="secondary-logo">
-					<source srcset="/SECONDARY LIGHT.png" media="(prefers-color-scheme: dark)" />
-					<img src="/SECONDARY DARK.png" alt="VNTA" width="200" height="60" />
+					<source srcset="/secondary-light.png" media="(prefers-color-scheme: dark)" />
+					<img src="/secondary-dark.png" alt="VNTA" width="200" height="60" />
 				</picture>
 			</a>
 			<a href="mailto:studio@vnta.xyz" class="email-link">studio@vnta.xyz</a>
