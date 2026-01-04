@@ -12,7 +12,7 @@
 
 <svelte:head>
 	<link rel="icon" type="image/png" href="{base}/main-dark.png" media="(prefers-color-scheme: light)" />
-	<link rel="icon" type="image/png" href="{base}/main-light.png" media="(prefers-color-scheme: dark)" />
+	<link rel="icon" type="image/png" href="{base}/main-dark.png" media="(prefers-color-scheme: dark)" />
 	<link rel="icon" type="image/png" href="{base}/main-dark.png" />
 	<meta name="theme-color" content="#000000" />
 </svelte:head>

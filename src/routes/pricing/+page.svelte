@@ -72,7 +72,7 @@
 	<header class="header">
 		<a href="{base}/" class="logo-link">
 			<picture class="logo">
-				<source srcset="{base}/main-light.png" media="(prefers-color-scheme: dark)" />
+				<source srcset="{base}/main-dark.png" media="(prefers-color-scheme: dark)" />
 				<img src="{base}/main-dark.png" alt="VNTA" width="120" height="120" />
 			</picture>
 		</a>
@@ -125,7 +125,7 @@
 		<div class="footer-section">
 			<a href="{base}/" class="secondary-logo-link">
 				<picture class="secondary-logo">
-					<source srcset="{base}/secondary-light.png" media="(prefers-color-scheme: dark)" />
+					<source srcset="{base}/secondary-dark.png" media="(prefers-color-scheme: dark)" />
 					<img src="{base}/secondary-dark.png" alt="VNTA" width="200" height="60" />
 				</picture>
 			</a>
