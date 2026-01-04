@@ -1,9 +1,3 @@
-/* Home only: tighten space before footer divider */
-:global(.page-container) {
-	padding-bottom: 56px;
-}
-
-
 <script lang="ts">
 	import { base } from '$app/paths';
 
@@ -77,6 +71,11 @@
 </main>
 
 <style>
+	/* Home only: tighten space before footer divider */
+	:global(.page-container) {
+		padding-bottom: 56px;
+	}
+
 	/* Page content only — header/nav is now in +layout.svelte */
 
 	.hero {
