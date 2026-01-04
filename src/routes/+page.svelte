@@ -1,4 +1,3 @@
-
 <script lang="ts">
 	import { base } from '$app/paths';
 	const contactEmail = 'studio@vnta.xyz';
@@ -20,13 +19,17 @@
 </svelte:head>
 
 <main class="page-container">
-	<header class="top"> 
-	<!-- <header class="top content-width">  -->
+	<header class="top">
 		<picture class="logo">
 			<source srcset="{base}/main-dark.png" media="(prefers-color-scheme: dark)" />
 			<img src="{base}/main-dark.png" alt="VNTA" width="120" height="120" />
 		</picture>
-		<span class="coming-soon">Coming Soon</span>
+
+		<nav class="nav">
+			<a class="nav-link" href="{base}/model">Model</a>
+			<a class="nav-link" href="{base}/pricing">Packages</a>
+			<span class="coming-soon">Coming Soon</span>
+		</nav>
 	</header>
 
 	<section class="hero content-width">
@@ -72,6 +75,36 @@
 		z-index: 1;
 	}
 
+	/* NEW: top-right nav pills */
+	.nav {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.nav-link {
+		font-size: 0.8125rem;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.6);
+		font-weight: 600;
+		padding: 8px 14px;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: rgba(255, 255, 255, 0.02);
+		backdrop-filter: blur(10px);
+		transition: all 0.2s ease;
+		text-decoration: none;
+	}
+
+	.nav-link:hover {
+		color: rgba(255, 255, 255, 0.9);
+		border-color: rgba(255, 255, 255, 0.22);
+		background: rgba(255, 255, 255, 0.035);
+		transform: translateY(-1px);
+	}
+
+	/* existing coming-soon pill stays the same */
 	.coming-soon {
 		font-size: 0.8125rem;
 		letter-spacing: 0.15em;
@@ -154,5 +187,18 @@
 
 	.btn-primary {
 		margin-bottom: 32px;
+	}
+
+	/* Optional: make header wrap nicely on mobile */
+	@media (max-width: 600px) {
+		.top {
+			gap: 16px;
+			align-items: flex-start;
+		}
+
+		.nav {
+			flex-wrap: wrap;
+			justify-content: flex-end;
+		}
 	}
 </style>
