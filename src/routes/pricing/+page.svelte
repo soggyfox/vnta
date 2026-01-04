@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+
 	const packages = [
 		{
 			name: 'FOUNDATION',
@@ -64,7 +65,7 @@
 	<title>Packages — VNTA</title>
 	<meta
 		name="description"
-		content="12-month brand leadership packages with clear monthly deliverables."
+		content="Baseline engagement structures for brand leadership in residence. Most engagements are tailored."
 	/>
 </svelte:head>
 
@@ -80,14 +81,16 @@
 
 	<main class="content content-width">
 		<h1 class="title">Packages</h1>
+
 		<p class="subtitle">
 			12 months of brand leadership in residence.
 			<span class="subtitle-note">
-				Most engagements are tailored; the packages below represent baseline structures used to anchor
+				Most engagements are tailored. The packages below represent baseline structures used to anchor
 				scope, cadence, and pricing.
 			</span>
 		</p>
 
+		<!-- BASELINE TIERS -->
 		<div class="packages">
 			{#each packages as pkg}
 				<div class="package" class:featured={pkg.featured}>
@@ -100,6 +103,7 @@
 							<div class="price-alt">{pkg.oneTime}</div>
 						</div>
 					</div>
+
 					<ul class="features">
 						{#each pkg.features as feature}
 							<li>{feature}</li>
@@ -109,6 +113,7 @@
 			{/each}
 		</div>
 
+		<!-- OPTIONAL RETAINERS -->
 		<section class="retainers">
 			<h2 class="section-title">Optional Post-Engagement Retainers</h2>
 			<p class="section-note">After 12 months, new clients only</p>
@@ -127,18 +132,20 @@
 			</div>
 		</section>
 
+		<!-- TAILORED ENGAGEMENTS -->
 		<section class="tailored">
 			<h2 class="section-title">Tailored Engagements</h2>
 
 			<p class="tailored-lede">
-				Not every business requires full brand leadership in residence. Some engagements focus on a
-				specific phase — refinement, repositioning, or go-to-market execution.
+				Not every business requires full brand leadership in residence.
+				Some engagements focus on a specific phase — refinement, repositioning,
+				or go-to-market execution.
 			</p>
 
 			<div class="tailored-steps">
 				<div class="tailored-step">
 					<h3>Audit & Diagnosis</h3>
-					<p>A focused review of brand, narrative, market context, and operating realities.</p>
+					<p>Focused review of brand, narrative, market context, and operating realities.</p>
 				</div>
 
 				<div class="tailored-step">
@@ -154,7 +161,7 @@
 
 			<div class="tailored-cta">
 				<p>To discuss a tailored engagement:</p>
-				<a href="mailto:studio@vnta.xyz" class="btn-primary">studio@vnta.xyz</a>
+				<a href="mailto:studio@vnta.xyz" class="tailored-link">studio@vnta.xyz</a>
 			</div>
 		</section>
 
@@ -171,6 +178,7 @@
 </div>
 
 <style>
+	/* HEADER */
 	.header {
 		padding: 0 0 40px;
 	}
@@ -184,6 +192,7 @@
 		opacity: 0.8;
 	}
 
+	/* TITLE */
 	.title {
 		font-family: 'Playfair Display', serif;
 		font-size: clamp(2.5rem, 5vw, 4rem);
@@ -207,6 +216,7 @@
 		max-width: 720px;
 	}
 
+	/* PACKAGES */
 	.packages {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -243,7 +253,6 @@
 		font-size: 1.5rem;
 		font-weight: 600;
 		margin: 0 0 1.5rem;
-		letter-spacing: 0.02em;
 	}
 
 	.pricing-options {
@@ -255,7 +264,6 @@
 	.price {
 		font-size: 2rem;
 		font-weight: 700;
-		line-height: 1;
 	}
 
 	.price span {
@@ -280,7 +288,6 @@
 
 	.features li {
 		font-size: 0.9375rem;
-		line-height: 1.6;
 		color: rgba(255, 255, 255, 0.85);
 		padding-left: 1.5rem;
 		position: relative;
@@ -293,6 +300,7 @@
 		color: rgba(255, 255, 255, 0.4);
 	}
 
+	/* RETAINERS */
 	.retainers {
 		margin-top: 6rem;
 		padding-top: 3rem;
@@ -335,7 +343,6 @@
 	.retainer h3 {
 		font-size: 1.25rem;
 		font-weight: 600;
-		margin: 0 0 1rem;
 	}
 
 	.retainer-price {
@@ -346,18 +353,15 @@
 
 	.retainer p {
 		font-size: 0.9375rem;
-		line-height: 1.6;
 		color: rgba(255, 255, 255, 0.75);
-		margin: 0;
 	}
 
 	.invite {
 		color: rgba(255, 255, 255, 0.5);
 		font-style: italic;
-		margin-bottom: 0.5rem !important;
 	}
 
-	/* Tailored section */
+	/* TAILORED */
 	.tailored {
 		margin-top: 6rem;
 		padding-top: 3rem;
@@ -367,7 +371,6 @@
 	.tailored-lede {
 		max-width: 720px;
 		font-size: 1.0625rem;
-		line-height: 1.7;
 		color: rgba(255, 255, 255, 0.75);
 		margin: 0 0 3rem;
 	}
@@ -384,25 +387,16 @@
 		border-radius: 18px;
 		padding: 22px 24px;
 		background: rgba(255, 255, 255, 0.02);
-		transition: all 0.25s ease;
-	}
-
-	.tailored-step:hover {
-		border-color: rgba(255, 255, 255, 0.2);
-		background: rgba(255, 255, 255, 0.04);
-		transform: translateY(-2px);
 	}
 
 	.tailored-step h3 {
-		margin: 0 0 10px;
 		font-size: 1.15rem;
 		font-weight: 600;
+		margin: 0 0 10px;
 	}
 
 	.tailored-step p {
-		margin: 0;
 		font-size: 0.95rem;
-		line-height: 1.6;
 		color: rgba(255, 255, 255, 0.75);
 	}
 
@@ -410,23 +404,41 @@
 		display: flex;
 		align-items: center;
 		gap: 1.5rem;
-		flex-wrap: wrap;
 	}
 
 	.tailored-cta p {
 		margin: 0;
 		color: rgba(255, 255, 255, 0.65);
+	}
+
+	.tailored-link {
 		font-size: 0.95rem;
+		font-weight: 600;
+		color: rgba(255, 255, 255, 0.85);
+		position: relative;
+		text-decoration: none;
+	}
+
+	.tailored-link::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		bottom: -2px;
+		width: 100%;
+		height: 1px;
+		background: rgba(255, 255, 255, 0.35);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.2s ease;
+	}
+
+	.tailored-link:hover::after {
+		transform: scaleX(1);
 	}
 
 	@media (max-width: 768px) {
 		.packages {
 			grid-template-columns: 1fr;
-		}
-
-		.tailored {
-			margin-top: 4rem;
-			padding-top: 2.5rem;
 		}
 	}
 </style>
