@@ -32,7 +32,7 @@
 		{ name: 'vendr.ie', href: 'https://vendr.ie' }
 	];
 
-	// ✅ Dynamic year (never goes stale)
+	// Dynamic year (never goes stale)
 	const year = new Date().getFullYear();
 
 	function isActive(href: string) {
@@ -145,7 +145,8 @@
 							Vantanéant International Ltd is the holding company for Maison Seul, Eirvox, and Vendr.
 						</p>
 
-						<!-- ✅ Option C ventures: monospace, stamped, subtle ↗ -->
+						<p class="site-footer__label">Houses</p>
+
 						<div class="site-footer__ventures" aria-label="Ventures">
 							{#each ventures as v}
 								<a class="venture-link" href={v.href} target="_blank" rel="noreferrer">
@@ -157,7 +158,6 @@
 
 						<a class="email-link" href="mailto:studio@vnta.xyz">studio@vnta.xyz</a>
 
-						<!-- ✅ Copyright line -->
 						<p class="site-footer__copyright">
 							© {year} Vantanèant International Ltd. All rights reserved.
 						</p>
@@ -245,7 +245,7 @@
 		font-size: 0.95rem;
 		transition: all 0.2s ease;
 		display: inline-block;
-		margin-top: 12px;
+		margin-top: 10px;
 	}
 
 	:global(.email-link:hover) {
@@ -471,8 +471,8 @@
 	/* FOOTER */
 	.site-footer {
 		margin-top: 72px;
-		padding-top: 32px;
-		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		padding-top: 28px;
+		border-top: 1px solid rgba(255, 255, 255, 0.12);
 	}
 
 	.site-footer__inner {
@@ -502,15 +502,23 @@
 		max-width: 720px;
 	}
 
+	.site-footer__label {
+		margin: 14px 0 6px;
+		font-size: 0.72rem;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.4);
+	}
+
 	.site-footer__ventures {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 10px 14px;
+		gap: 8px 14px;
 		align-items: center;
-		margin-top: 10px;
+		margin-top: 0;
 	}
 
-	/* ✅ Option C venture styling */
+	/* Option C venture styling */
 	.venture-link {
 		display: inline-flex;
 		align-items: baseline;
@@ -545,9 +553,8 @@
 		color: rgba(255, 255, 255, 0.55);
 	}
 
-	/* ✅ Copyright line */
 	.site-footer__copyright {
-		margin: 14px 0 0;
+		margin: 10px 0 0;
 		font-size: 0.78rem;
 		letter-spacing: 0.02em;
 		color: rgba(255, 255, 255, 0.38);
@@ -599,12 +606,10 @@
 			padding: 14px 24px;
 		}
 
-		/* Hide desktop nav on mobile */
 		.nav {
 			display: none;
 		}
 
-		/* Show mobile controls (status + menu button) */
 		.mobile-controls {
 			display: inline-flex;
 		}
@@ -613,6 +618,11 @@
 			padding: 0 24px 44px;
 			flex-direction: column;
 			align-items: flex-start;
+		}
+
+		/* Keep the ventures group feeling “together” on mobile */
+		.site-footer__ventures {
+			gap: 8px 18px;
 		}
 	}
 </style>
