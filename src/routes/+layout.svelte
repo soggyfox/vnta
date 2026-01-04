@@ -7,6 +7,9 @@
 	import '@fontsource/playfair-display/700.css';
 	import { base } from '$app/paths';
 
+	import { page } from '$app/stores';
+	import { fade } from 'svelte/transition';
+
 	let { children } = $props();
 </script>
 
@@ -17,7 +20,13 @@
 	<meta name="theme-color" content="#000000" />
 </svelte:head>
 
-<div class="app-shell">{@render children()}</div>
+<div class="app-shell">
+	{#key $page.url.pathname}
+		<div class="page" in:fade={{ duration: 180 }}>
+			{@render children()}
+		</div>
+	{/key}
+</div>
 
 <style>
 	:global(body) {
@@ -42,7 +51,6 @@
 		border-radius: 4px;
 	}
 
-	/* Shared container styles */
 	:global(.page-container) {
 		max-width: 1120px;
 		margin: 0 auto;
@@ -54,7 +62,6 @@
 		max-width: 880px;
 	}
 
-	/* Shared logo styles */
 	:global(.logo) {
 		display: block;
 		transition: transform 0.3s ease;
@@ -71,7 +78,6 @@
 		object-fit: contain;
 	}
 
-	/* Shared link styles */
 	:global(.email-link) {
 		color: rgba(255, 255, 255, 0.6);
 		text-decoration: none;
@@ -85,7 +91,6 @@
 		letter-spacing: 0.01em;
 	}
 
-	/* Shared button styles */
 	:global(.btn-primary) {
 		display: inline-block;
 		padding: 16px 32px;
@@ -113,7 +118,6 @@
 		box-shadow: 0 2px 6px rgba(255, 255, 255, 0.08);
 	}
 
-	/* Shared footer styles */
 	:global(.footer-section) {
 		margin-top: 6rem;
 		padding-top: 3rem;
@@ -146,7 +150,6 @@
 		object-fit: contain;
 	}
 
-	/* Responsive */
 	@media (max-width: 768px) {
 		:global(.page-container) {
 			padding: 48px 24px 80px;
@@ -164,6 +167,10 @@
 	}
 
 	.app-shell {
+		min-height: 100vh;
+	}
+
+	.page {
 		min-height: 100vh;
 	}
 </style>
