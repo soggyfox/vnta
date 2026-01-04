@@ -29,7 +29,7 @@
 	</header>
 
 	<section class="hero content-width">
-		<p class="eyebrow">Vantáneant International Ltd</p>
+		<p class="eyebrow">Vantanéant International Ltd</p>
 		<h1>Brand Leadership in Residence</h1>
 		<p class="lede">
 			We're the visionaries & operators. Founders focus on their passion; we lead, guide, and
