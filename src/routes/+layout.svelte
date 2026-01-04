@@ -12,7 +12,7 @@
 
 	let { children } = $props();
 
-	// Svelte 5 runes (works in SvelteKit 2)
+	// Svelte 5 runes (SvelteKit 2)
 	let mobileOpen = $state(false);
 
 	const nav = [
@@ -33,7 +33,6 @@
 	];
 
 	function isActive(href: string) {
-		// normalize with base + handle trailing slashes
 		const path = $page.url.pathname.replace(/\/$/, '');
 		const target = href.replace(base, '').replace(/\/$/, '') || '/';
 		const current = path || '/';
@@ -55,7 +54,7 @@
 <div class="app-shell" data-sveltekit-preload-data="hover">
 	{#key $page.url.pathname}
 		<div class="page" in:fade={{ duration: 180 }}>
-			<!-- GLOBAL HEADER (shows on every page) -->
+			<!-- GLOBAL HEADER -->
 			<header class="site-header" aria-label="VNTA header">
 				<div class="site-header__inner">
 					<a class="brand" href="{base}/" aria-label="VNTA home" on:click={closeMobile}>
@@ -65,6 +64,7 @@
 						</picture>
 					</a>
 
+					<!-- DESKTOP NAV -->
 					<nav class="nav" aria-label="Primary navigation">
 						{#each nav as item}
 							<a
@@ -80,23 +80,27 @@
 						<span class="status" aria-label="Status: Coming soon">Coming Soon</span>
 					</nav>
 
-					<!-- MOBILE MENU BUTTON -->
-					<button
-						type="button"
-						class="menu-btn"
-						aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-						aria-expanded={mobileOpen}
-						on:click={() => (mobileOpen = !mobileOpen)}
-					>
-						{#if mobileOpen}
-							<span class="menu-x" aria-hidden="true">×</span>
-						{:else}
-							<span class="menu-bars" aria-hidden="true">≡</span>
-						{/if}
-					</button>
+					<!-- MOBILE CONTROLS (status OUTSIDE dropdown) -->
+					<div class="mobile-controls">
+						<span class="status status--mobile" aria-label="Status: Coming soon">Coming Soon</span>
+
+						<button
+							type="button"
+							class="menu-btn"
+							aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+							aria-expanded={mobileOpen}
+							on:click={() => (mobileOpen = !mobileOpen)}
+						>
+							{#if mobileOpen}
+								<span class="menu-x" aria-hidden="true">×</span>
+							{:else}
+								<span class="menu-bars" aria-hidden="true">≡</span>
+							{/if}
+						</button>
+					</div>
 				</div>
 
-				<!-- MOBILE DROPDOWN -->
+				<!-- MOBILE DROPDOWN (NO "Coming Soon" inside) -->
 				{#if mobileOpen}
 					<div class="mobile" role="dialog" aria-label="Menu">
 						<div class="mobile__panel">
@@ -111,12 +115,6 @@
 										{item.label}
 									</a>
 								{/each}
-
-								<div class="mobile__divider" aria-hidden="true"></div>
-
-								<div class="mobile__status" aria-label="Status">
-									<span>Coming Soon</span>
-								</div>
 							</nav>
 						</div>
 
@@ -130,7 +128,7 @@
 				{@render children()}
 			</main>
 
-			<!-- GLOBAL FOOTER (shows on every page) -->
+			<!-- GLOBAL FOOTER -->
 			<footer class="site-footer" aria-label="VNTA footer">
 				<div class="site-footer__inner">
 					<div class="site-footer__left">
@@ -208,7 +206,6 @@
 		border-radius: 4px;
 	}
 
-	/* Keep your existing page container utility */
 	:global(.page-container) {
 		max-width: 1120px;
 		margin: 0 auto;
@@ -219,7 +216,6 @@
 		max-width: 880px;
 	}
 
-	/* Shared logo styles (kept) */
 	:global(.logo) {
 		display: block;
 		transition: transform 0.3s ease;
@@ -291,7 +287,7 @@
 		flex: 1 0 auto;
 	}
 
-	/* -------------------- HEADER -------------------- */
+	/* HEADER */
 	.site-header {
 		position: sticky;
 		top: 0;
@@ -311,18 +307,12 @@
 		gap: 18px;
 	}
 
-	.brand {
-		display: inline-flex;
-		align-items: center;
-	}
-
 	.nav {
 		display: flex;
 		align-items: center;
 		gap: 26px;
 	}
 
-	/* Text links (not pills) */
 	.nav-link {
 		font-size: 0.78rem;
 		letter-spacing: 0.16em;
@@ -364,7 +354,6 @@
 		background: rgba(255, 255, 255, 0.55);
 	}
 
-	/* Status stays as the only pill */
 	.status {
 		font-size: 0.78rem;
 		letter-spacing: 0.15em;
@@ -378,15 +367,27 @@
 		white-space: nowrap;
 	}
 
-	/* Mobile button hidden on desktop */
-	.menu-btn {
+	/* Mobile controls wrapper (status + menu button) */
+	.mobile-controls {
 		display: none;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.status--mobile {
+		padding: 7px 12px;
+		font-size: 0.74rem;
+		letter-spacing: 0.14em;
+	}
+
+	.menu-btn {
 		border: 1px solid rgba(255, 255, 255, 0.14);
 		background: rgba(255, 255, 255, 0.03);
 		color: rgba(255, 255, 255, 0.9);
 		border-radius: 14px;
 		width: 44px;
 		height: 44px;
+		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		cursor: pointer;
@@ -451,20 +452,6 @@
 		color: rgba(255, 255, 255, 0.98);
 	}
 
-	.mobile__divider {
-		height: 1px;
-		margin: 8px 10px;
-		background: rgba(255, 255, 255, 0.08);
-	}
-
-	.mobile__status {
-		padding: 12px 14px;
-		color: rgba(255, 255, 255, 0.5);
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
-		font-size: 0.78rem;
-	}
-
 	.mobile__backdrop {
 		position: fixed;
 		inset: 0;
@@ -474,7 +461,7 @@
 		cursor: default;
 	}
 
-	/* -------------------- FOOTER -------------------- */
+	/* FOOTER */
 	.site-footer {
 		margin-top: 72px;
 		padding-top: 32px;
@@ -555,7 +542,7 @@
 		color: rgba(255, 255, 255, 0.95);
 	}
 
-	/* -------------------- RESPONSIVE -------------------- */
+	/* RESPONSIVE */
 	@media (max-width: 900px) {
 		.nav {
 			gap: 18px;
@@ -576,12 +563,13 @@
 			padding: 14px 24px;
 		}
 
-		/* hide desktop nav, show menu button */
+		/* Hide desktop nav on mobile */
 		.nav {
 			display: none;
 		}
 
-		.menu-btn {
+		/* Show mobile controls (status + menu button) */
+		.mobile-controls {
 			display: inline-flex;
 		}
 
