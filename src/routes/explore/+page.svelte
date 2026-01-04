@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-
 	const pillars = [
 		{
 			title: 'Cadence',
@@ -86,17 +84,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 </svelte:head>
 
-<div class="page-container">
-	<header class="header">
-		<a href="{base}/" class="logo-link" aria-label="Back to home">
-			<picture class="logo">
-				<source srcset="{base}/main-dark.png" media="(prefers-color-scheme: dark)" />
-				<img src="{base}/main-dark.png" alt="VNTA" width="120" height="120" />
-			</picture>
-		</a>
-	</header>
-
-	<main class="content content-width">
+<main class="page-container">
+	<div class="content content-width">
 		<section class="hero">
 			<h1 class="title">Engagement Model</h1>
 			<p class="subtitle">A–Z Brand Leadership in Residence</p>
@@ -198,27 +187,13 @@
 					<h2>Ready to see packages?</h2>
 					<p>Choose the level of leadership you need for the next 12 months.</p>
 				</div>
-				<a href="{base}/pricing" class="btn-primary">View Packages</a>
+				<a href="/pricing" class="btn-primary">View Packages</a>
 			</div>
 		</section>
-	</main>
-</div>
+	</div>
+</main>
 
 <style>
-	/* Header */
-	.header {
-		padding: 0 0 40px;
-	}
-
-	.logo-link {
-		display: inline-block;
-		transition: opacity 0.2s ease;
-	}
-
-	.logo-link:hover {
-		opacity: 0.8;
-	}
-
 	/* Hero */
 	.hero {
 		margin-bottom: 56px;
