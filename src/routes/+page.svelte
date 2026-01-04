@@ -1,11 +1,17 @@
+/* Home only: tighten space before footer divider */
+:global(.page-container) {
+	padding-bottom: 56px;
+}
+
+
 <script lang="ts">
 	import { base } from '$app/paths';
 
 	const partners = [
-		{ name: 'MIKRON', src: `${base}/partners/mikron.svg` },
-		{ name: 'Pomegranate', src: `${base}/partners/pomegranate.svg` },
-		{ name: 'Garboosh', src: `${base}/partners/garboosh.svg` },
-		{ name: 'Velo City', src: `${base}/partners/velocity.svg` }
+		{ name: 'Felixto Brandworks', src: `${base}/partners/felixto.png` },
+		{ name: 'Felixto Brandworks', src: `${base}/partners/felixto.png` },
+		{ name: 'Felixto Brandworks', src: `${base}/partners/felixto.png` },
+		{ name: 'Felixto Brandworks', src: `${base}/partners/felixto.png` }
 	];
 
 	// Duplicate once so the marquee can loop cleanly
