@@ -80,13 +80,18 @@
 
 	<main class="content content-width">
 		<h1 class="title">Packages</h1>
-		<p class="subtitle">12 months of brand leadership in residence</p>
+		<p class="subtitle">
+			12 months of brand leadership in residence.
+			<span class="subtitle-note">
+				Most engagements are tailored; the packages below represent baseline structures used to anchor
+				scope, cadence, and pricing.
+			</span>
+		</p>
 
 		<div class="packages">
 			{#each packages as pkg}
 				<div class="package" class:featured={pkg.featured}>
 					<div class="package-header">
-
 						<h2>{pkg.name}</h2>
 						<div class="pricing-options">
 							<div class="price">
@@ -119,6 +124,37 @@
 						<p>{retainer.description}</p>
 					</div>
 				{/each}
+			</div>
+		</section>
+
+		<section class="tailored">
+			<h2 class="section-title">Tailored Engagements</h2>
+
+			<p class="tailored-lede">
+				Not every business requires full brand leadership in residence. Some engagements focus on a
+				specific phase — refinement, repositioning, or go-to-market execution.
+			</p>
+
+			<div class="tailored-steps">
+				<div class="tailored-step">
+					<h3>Audit & Diagnosis</h3>
+					<p>A focused review of brand, narrative, market context, and operating realities.</p>
+				</div>
+
+				<div class="tailored-step">
+					<h3>Scoped Plan</h3>
+					<p>Clear deliverables, timeline, ownership, and specialist partners if required.</p>
+				</div>
+
+				<div class="tailored-step">
+					<h3>Execution</h3>
+					<p>Led by VNTA, often in collaboration with trusted execution partners.</p>
+				</div>
+			</div>
+
+			<div class="tailored-cta">
+				<p>To discuss a tailored engagement:</p>
+				<a href="mailto:studio@vnta.xyz" class="btn-primary">studio@vnta.xyz</a>
 			</div>
 		</section>
 
@@ -163,6 +199,14 @@
 		margin: 0 0 4rem;
 	}
 
+	.subtitle-note {
+		display: block;
+		margin-top: 0.75rem;
+		font-size: 0.9375rem;
+		color: rgba(255, 255, 255, 0.55);
+		max-width: 720px;
+	}
+
 	.packages {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -193,20 +237,6 @@
 		margin-bottom: 2rem;
 		padding-bottom: 2rem;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	}
-
-	.pill {
-		display: inline-flex;
-		align-items: center;
-		gap: 8px;
-		padding: 8px 12px;
-		border-radius: 999px;
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		background: rgba(255, 255, 255, 0.02);
-		color: #ffffff;
-		font-size: 0.85rem;
-		letter-spacing: 0.02em;
-		margin-bottom: 12px;
 	}
 
 	.package h2 {
@@ -327,9 +357,76 @@
 		margin-bottom: 0.5rem !important;
 	}
 
+	/* Tailored section */
+	.tailored {
+		margin-top: 6rem;
+		padding-top: 3rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.tailored-lede {
+		max-width: 720px;
+		font-size: 1.0625rem;
+		line-height: 1.7;
+		color: rgba(255, 255, 255, 0.75);
+		margin: 0 0 3rem;
+	}
+
+	.tailored-steps {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1.75rem;
+		margin-bottom: 3rem;
+	}
+
+	.tailored-step {
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 18px;
+		padding: 22px 24px;
+		background: rgba(255, 255, 255, 0.02);
+		transition: all 0.25s ease;
+	}
+
+	.tailored-step:hover {
+		border-color: rgba(255, 255, 255, 0.2);
+		background: rgba(255, 255, 255, 0.04);
+		transform: translateY(-2px);
+	}
+
+	.tailored-step h3 {
+		margin: 0 0 10px;
+		font-size: 1.15rem;
+		font-weight: 600;
+	}
+
+	.tailored-step p {
+		margin: 0;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	.tailored-cta {
+		display: flex;
+		align-items: center;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+
+	.tailored-cta p {
+		margin: 0;
+		color: rgba(255, 255, 255, 0.65);
+		font-size: 0.95rem;
+	}
+
 	@media (max-width: 768px) {
 		.packages {
 			grid-template-columns: 1fr;
+		}
+
+		.tailored {
+			margin-top: 4rem;
+			padding-top: 2.5rem;
 		}
 	}
 </style>
