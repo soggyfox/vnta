@@ -5,14 +5,15 @@
 	import '@fontsource/manrope/700.css';
 	import '@fontsource/playfair-display/600.css';
 	import '@fontsource/playfair-display/700.css';
+	import { base } from '$app/paths';
 
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<link rel="icon" type="image/png" href="/main-dark.png" media="(prefers-color-scheme: light)" />
-	<link rel="icon" type="image/png" href="/main-light.png" media="(prefers-color-scheme: dark)" />
-	<link rel="icon" type="image/png" href="/main-dark.png" />
+	<link rel="icon" type="image/png" href="{base}/main-dark.png" media="(prefers-color-scheme: light)" />
+	<link rel="icon" type="image/png" href="{base}/main-light.png" media="(prefers-color-scheme: dark)" />
+	<link rel="icon" type="image/png" href="{base}/main-dark.png" />
 	<meta name="theme-color" content="#000000" />
 </svelte:head>
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	const contactEmail = 'studio@vnta.xyz';
 </script>
 
@@ -21,8 +22,8 @@
 	<header class="top"> 
 	<!-- <header class="top content-width">  -->
 		<picture class="logo">
-			<source srcset="/main-light.png" media="(prefers-color-scheme: dark)" />
-			<img src="/main-dark.png" alt="VNTA" width="120" height="120" />
+			<source srcset="{base}/main-light.png" media="(prefers-color-scheme: dark)" />
+			<img src="{base}/main-dark.png" alt="VNTA" width="120" height="120" />
 		</picture>
 		<span class="coming-soon">Coming Soon</span>
 	</header>
@@ -47,13 +48,13 @@
 		</div>
 	</section>
 
-	<a href="/pricing" class="btn-primary">View Packages</a>
+	<a href="{base}/pricing" class="btn-primary">View Packages</a>
 
 	<div class="footer-section content-width">
-		<a href="/" class="secondary-logo-link">
+		<a href="{base}/" class="secondary-logo-link">
 			<picture class="secondary-logo">
-				<source srcset="/secondary-light.png" media="(prefers-color-scheme: dark)" />
-				<img src="/secondary-dark.png" alt="VNTA" width="200" height="60" />
+				<source srcset="{base}/secondary-light.png" media="(prefers-color-scheme: dark)" />
+				<img src="{base}/secondary-dark.png" alt="VNTA" width="200" height="60" />
 			</picture>
 		</a>
 		<a href="mailto:studio@vnta.xyz" class="email-link">studio@vnta.xyz</a>
