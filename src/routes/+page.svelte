@@ -2,10 +2,10 @@
 	import { base } from '$app/paths';
 
 	const partners = [
-		{ name: 'Felixto Brandworks', src: `${base}/partners/felixto.png` },
-		{ name: 'Felixto Brandworks', src: `${base}/partners/felixto.png` },
-		{ name: 'Felixto Brandworks', src: `${base}/partners/felixto.png` },
-		{ name: 'Felixto Brandworks', src: `${base}/partners/felixto.png` }
+		{ name: 'Felixto Brandworks', src: 'https://felixtobrandworks.com/logo.png' },  // Real logo for Felixto
+		{ name: 'Partner 2', src: `${base}/partners/placeholder.png` },  // Placeholder logo
+		{ name: 'Partner 3', src: `${base}/partners/placeholder.png` },  // Placeholder logo
+		{ name: 'Partner 4', src: `${base}/partners/placeholder.png` }   // Placeholder logo
 	];
 
 	// Duplicate once so the marquee can loop cleanly
@@ -58,14 +58,12 @@
 			<div class="partners__rail" tabindex="0" aria-label="Partner logos">
 				<div class="partners__track">
 					{#each track as p, i (p.name + i)}
-						<div class="partner-card">
+						<a class="partner-tile" href={p.name === 'Felixto Brandworks' ? 'https://felixtobrandworks.com' : '#'} aria-label={p.name}>
 							<img class="partner-logo" src={p.src} alt={p.name} loading="lazy" />
-						</div>
+						</a>
 					{/each}
 				</div>
 			</div>
-
-			<p class="partners__hint">Scroll →</p>
 		</div>
 	</section>
 </main>
@@ -178,51 +176,55 @@
 	/* track = moving row */
 	.partners__track {
 		display: flex;
-		gap: 18px;
-		padding: 18px;
+		align-items: stretch;
+		gap: 0;
 		width: max-content;
 		animation: marquee 26s linear infinite;
 		will-change: transform;
 	}
 
-	/* pause on hover/focus (feels premium + usable) */
-	.partners__rail:hover .partners__track,
-	.partners__rail:focus-within .partners__track {
+	/* pause on hover/focus */
+	.partners__strip:hover .partners__track,
+	.partners__strip:focus-within .partners__track {
 		animation-play-state: paused;
 	}
 
-	/* each logo tile */
-	.partner-card {
-		width: 220px;
-		height: 88px;
+	/* each logo tile mimics the Wix grid cards */
+	.partner-tile {
+		width: 240px;
+		min-height: 124px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border-radius: 16px;
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		background: rgba(0, 0, 0, 0.2);
+		border-right: 1px solid rgba(255, 255, 255, 0.10);
+		background: rgba(0, 0, 0, 0.10);
+		transition: background 0.2s ease;
+	}
+
+	.partner-tile:hover {
+		background: rgba(255, 255, 255, 0.03);
 	}
 
 	.partner-logo {
 		max-width: 72%;
 		max-height: 52%;
-		opacity: 0.78;
-		filter: grayscale(100%);
-		transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s ease;
+		opacity: 0.70;
+		transition: opacity 0.2s ease, transform 0.2s ease;
 	}
 
-	.partner-card:hover .partner-logo {
-		opacity: 0.95;
-		filter: grayscale(0%);
+	.partner-tile:hover .partner-logo {
+		opacity: 0.92;
 		transform: translateY(-1px);
 	}
 
 	.partners__hint {
-		margin: 10px 0 0;
+		max-width: 1120px;
+		margin: 10px auto 0;
+		padding: 0 48px;
 		font-size: 0.78rem;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.4);
+		color: rgba(255, 255, 255, 0.40);
 	}
 
 	@keyframes marquee {
@@ -234,16 +236,13 @@
 		}
 	}
 
-	/* Respect reduced motion */
+	/* reduced motion */
 	@media (prefers-reduced-motion: reduce) {
 		.partners__track {
 			animation: none;
 		}
 		.partners__rail {
 			overflow-x: auto;
-		}
-		.partners__track {
-			width: max-content;
 		}
 	}
 
