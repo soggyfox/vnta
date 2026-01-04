@@ -32,6 +32,9 @@
 		{ name: 'vendr.ie', href: 'https://vendr.ie' }
 	];
 
+	// ✅ Dynamic year (never goes stale)
+	const year = new Date().getFullYear();
+
 	function isActive(href: string) {
 		const path = $page.url.pathname.replace(/\/$/, '');
 		const target = href.replace(base, '').replace(/\/$/, '') || '/';
@@ -142,18 +145,22 @@
 							Vantanéant International Ltd is the holding company for Maison Seul, Eirvox, and Vendr.
 						</p>
 
+						<!-- ✅ Option C ventures: monospace, stamped, subtle ↗ -->
 						<div class="site-footer__ventures" aria-label="Ventures">
-							{#each ventures as v, i}
+							{#each ventures as v}
 								<a class="venture-link" href={v.href} target="_blank" rel="noreferrer">
-									{v.name}
+									<span class="venture-text">{v.name}</span>
+									<span class="venture-arrow" aria-hidden="true">↗</span>
 								</a>
-								{#if i < ventures.length - 1}
-									<span class="sep">·</span>
-								{/if}
 							{/each}
 						</div>
 
 						<a class="email-link" href="mailto:studio@vnta.xyz">studio@vnta.xyz</a>
+
+						<!-- ✅ Copyright line -->
+						<p class="site-footer__copyright">
+							© {year} Vantanèant International Ltd. All rights reserved.
+						</p>
 					</div>
 
 					<div class="site-footer__right" aria-label="Social links">
@@ -498,23 +505,52 @@
 	.site-footer__ventures {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 8px;
+		gap: 10px 14px;
 		align-items: center;
-		margin-top: 6px;
+		margin-top: 10px;
 	}
 
+	/* ✅ Option C venture styling */
 	.venture-link {
-		color: rgba(255, 255, 255, 0.72);
-		font-size: 0.92rem;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 6px;
+		padding: 6px 0;
+	}
+
+	.venture-text {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+			monospace;
+		font-size: 0.74rem;
+		letter-spacing: 0.22em;
+		text-transform: lowercase;
+		color: rgba(255, 255, 255, 0.48);
 		transition: color 0.2s ease;
 	}
 
-	.venture-link:hover {
-		color: rgba(255, 255, 255, 0.95);
+	.venture-arrow {
+		font-size: 0.75rem;
+		color: rgba(255, 255, 255, 0.28);
+		opacity: 0;
+		transform: translateY(1px);
+		transition: opacity 0.2s ease, color 0.2s ease;
 	}
 
-	.sep {
-		color: rgba(255, 255, 255, 0.28);
+	.venture-link:hover .venture-text {
+		color: rgba(255, 255, 255, 0.88);
+	}
+
+	.venture-link:hover .venture-arrow {
+		opacity: 1;
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	/* ✅ Copyright line */
+	.site-footer__copyright {
+		margin: 14px 0 0;
+		font-size: 0.78rem;
+		letter-spacing: 0.02em;
+		color: rgba(255, 255, 255, 0.38);
 	}
 
 	.site-footer__right {
