@@ -131,38 +131,45 @@
 				{@render children()}
 			</main>
 
-			<!-- GLOBAL FOOTER -->
+			<!-- GLOBAL FOOTER (minimal, pressed rows) -->
 			<footer class="site-footer" aria-label="VNTA footer">
 				<div class="site-footer__inner">
-					<div class="site-footer__left">
-						<p class="site-footer__slogan">Áilleacht na Díomhaointe.</p>
+					<div class="footer-rows">
+						<details class="footer-row">
+							<summary class="footer-row__summary">
+								<span class="footer-row__title">Houses</span>
+								<span class="footer-row__icon" aria-hidden="true">+</span>
+							</summary>
 
-						<p class="site-footer__legal">
-							VNTA® is a registered trademark of Vantanéant International Ltd.
-						</p>
+							<div class="footer-row__body" aria-label="Houses links">
+								{#each ventures as v}
+									<a class="footer-link" href={v.href} target="_blank" rel="noreferrer">
+										<span class="footer-link__text">{v.name}</span>
+										<span class="footer-link__arrow" aria-hidden="true">↗</span>
+									</a>
+								{/each}
+							</div>
+						</details>
 
-						<p class="site-footer__structure">
-							Vantanéant International Ltd is the holding company for Maison Seul, Eirvox, and Vendr.
-						</p>
+						<details class="footer-row">
+							<summary class="footer-row__summary">
+								<span class="footer-row__title">Legal</span>
+								<span class="footer-row__icon" aria-hidden="true">+</span>
+							</summary>
 
-						<p class="site-footer__label">Houses</p>
-
-						<div class="site-footer__ventures" aria-label="Ventures">
-							{#each ventures as v}
-								<a class="venture-link" href={v.href} target="_blank" rel="noreferrer">
-									<span class="venture-text">{v.name}</span>
-									<span class="venture-arrow" aria-hidden="true">↗</span>
-								</a>
-							{/each}
-						</div>
-
-						<a class="email-link" href="mailto:studio@vnta.xyz">studio@vnta.xyz</a>
-
-						<p class="site-footer__copyright">
-							© {year} Vantanèant International Ltd. All rights reserved.
-						</p>
+							<div class="footer-row__body footer-row__body--legal">
+								<p class="footer-legal">
+									VNTA® is a registered trademark of Vantanéant International Ltd.
+								</p>
+								<p class="footer-legal">
+									Vantanéant International Ltd is the holding company for Maison Seul, Eirvox, and Vendr.
+								</p>
+								<p class="footer-muted">© {year} Vantanèant International Ltd.</p>
+							</div>
+						</details>
 					</div>
 
+					<!-- socials (keep, but minimal) -->
 					<div class="site-footer__right" aria-label="Social links">
 						{#each socials as s}
 							<a class="social" href={s.href} target="_blank" rel="noreferrer" aria-label={s.name}>
@@ -234,8 +241,8 @@
 
 	:global(.logo img) {
 		display: block;
-		width: 120px;
-		height: 120px;
+		width: 104px;
+		height: 104px;
 		object-fit: contain;
 	}
 
@@ -294,7 +301,7 @@
 		flex: 1 0 auto;
 	}
 
-	/* HEADER */
+	/* HEADER (reduced height) */
 	.site-header {
 		position: sticky;
 		top: 0;
@@ -307,7 +314,7 @@
 	.site-header__inner {
 		max-width: 1120px;
 		margin: 0 auto;
-		padding: 18px 48px;
+		padding: 12px 48px;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -468,101 +475,132 @@
 		cursor: default;
 	}
 
-	/* FOOTER */
+	/* FOOTER (pressed rows) */
 	.site-footer {
-		margin-top: 72px;
-		padding-top: 28px;
+		margin-top: 48px;
+		padding-top: 18px;
 		border-top: 1px solid rgba(255, 255, 255, 0.12);
 	}
 
 	.site-footer__inner {
 		max-width: 1120px;
 		margin: 0 auto;
-		padding: 0 48px 56px;
+		padding: 0 48px 44px;
 		display: flex;
 		justify-content: space-between;
-		gap: 28px;
-		align-items: flex-end;
+		gap: 24px;
+		align-items: flex-start;
 	}
 
-	.site-footer__slogan {
-		margin: 0 0 10px;
-		font-family: 'Playfair Display', serif;
-		font-size: 1.1rem;
-		letter-spacing: -0.01em;
-		color: rgba(255, 255, 255, 0.92);
-	}
-
-	.site-footer__legal,
-	.site-footer__structure {
-		margin: 0 0 10px;
-		color: rgba(255, 255, 255, 0.58);
-		font-size: 0.92rem;
-		line-height: 1.6;
+	.footer-rows {
+		width: 100%;
 		max-width: 720px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
 	}
 
-	.site-footer__label {
-		margin: 14px 0 6px;
-		font-size: 0.72rem;
+	.footer-row {
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 18px;
+		background: rgba(255, 255, 255, 0.02);
+		overflow: hidden;
+	}
+
+	.footer-row__summary {
+		list-style: none;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 14px 16px;
+		cursor: pointer;
+		user-select: none;
+	}
+
+	.footer-row__summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.footer-row__title {
+		font-size: 0.8rem;
 		letter-spacing: 0.16em;
 		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.4);
+		font-weight: 700;
+		color: rgba(255, 255, 255, 0.72);
 	}
 
-	.site-footer__ventures {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px 14px;
-		align-items: center;
-		margin-top: 0;
+	.footer-row__icon {
+		color: rgba(255, 255, 255, 0.55);
+		font-size: 1.1rem;
+		line-height: 1;
+		transition: transform 0.18s ease, opacity 0.18s ease;
 	}
 
-	/* Option C venture styling */
-	.venture-link {
+	.footer-row[open] .footer-row__icon {
+		transform: rotate(45deg);
+	}
+
+	.footer-row__body {
+		padding: 10px 16px 16px;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		display: grid;
+		gap: 10px;
+	}
+
+	.footer-link {
 		display: inline-flex;
 		align-items: baseline;
-		gap: 6px;
-		padding: 6px 0;
+		justify-content: space-between;
+		gap: 12px;
+		padding: 10px 10px;
+		border-radius: 14px;
+		border: 1px solid rgba(255, 255, 255, 0.10);
+		background: rgba(0, 0, 0, 0.18);
+		transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 	}
 
-	.venture-text {
+	.footer-link:hover {
+		background: rgba(255, 255, 255, 0.04);
+		border-color: rgba(255, 255, 255, 0.18);
+		transform: translateY(-1px);
+	}
+
+	.footer-link__text {
 		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
 			monospace;
-		font-size: 0.74rem;
-		letter-spacing: 0.22em;
+		font-size: 0.78rem;
+		letter-spacing: 0.20em;
 		text-transform: lowercase;
-		color: rgba(255, 255, 255, 0.48);
-		transition: color 0.2s ease;
+		color: rgba(255, 255, 255, 0.62);
 	}
 
-	.venture-arrow {
-		font-size: 0.75rem;
-		color: rgba(255, 255, 255, 0.28);
-		opacity: 0;
-		transform: translateY(1px);
-		transition: opacity 0.2s ease, color 0.2s ease;
+	.footer-link__arrow {
+		color: rgba(255, 255, 255, 0.45);
 	}
 
-	.venture-link:hover .venture-text {
-		color: rgba(255, 255, 255, 0.88);
+	.footer-row__body--legal {
+		gap: 8px;
 	}
 
-	.venture-link:hover .venture-arrow {
-		opacity: 1;
-		color: rgba(255, 255, 255, 0.55);
+	.footer-legal {
+		margin: 0;
+		color: rgba(255, 255, 255, 0.62);
+		font-size: 0.92rem;
+		line-height: 1.6;
+		max-width: 56ch;
 	}
 
-	.site-footer__copyright {
-		margin: 10px 0 0;
+	.footer-muted {
+		margin: 2px 0 0;
+		color: rgba(255, 255, 255, 0.40);
 		font-size: 0.78rem;
 		letter-spacing: 0.02em;
-		color: rgba(255, 255, 255, 0.38);
 	}
 
 	.site-footer__right {
 		display: flex;
 		gap: 14px;
+		padding-top: 4px;
 	}
 
 	.social {
@@ -598,12 +636,12 @@
 		}
 
 		:global(.logo img) {
-			width: 80px;
-			height: 80px;
+			width: 72px;
+			height: 72px;
 		}
 
 		.site-header__inner {
-			padding: 14px 24px;
+			padding: 10px 24px;
 		}
 
 		.nav {
@@ -615,14 +653,14 @@
 		}
 
 		.site-footer__inner {
-			padding: 0 24px 44px;
+			padding: 0 24px 40px;
 			flex-direction: column;
 			align-items: flex-start;
+			gap: 18px;
 		}
 
-		/* Keep the ventures group feeling “together” on mobile */
-		.site-footer__ventures {
-			gap: 8px 18px;
+		.footer-rows {
+			max-width: 100%;
 		}
 	}
 </style>
