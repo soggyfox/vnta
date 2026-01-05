@@ -4,19 +4,19 @@
 			name: 'Maison Seul',
 			status: 'Coming 2027',
 			description:
-				'A future-facing house focused on restraint, form, and cultural permanence. Maison Seul is intentionally slow — built for longevity, not velocity.'
+				'A house built around restraint, form, and cultural permanence. Maison Seul moves slowly — designed for longevity, not velocity.'
 		},
 		{
 			name: 'Eirvox',
 			status: 'Launching Summer 2026',
 			description:
-				'A communications and signal platform emerging from VNTA. Eirvox explores voice, narrative, and modern transmission — designed to scale quietly.'
+				'A communications and signal platform emerging from VNTA. Eirvox explores voice, narrative, and modern transmission — built to scale quietly.'
 		},
 		{
 			name: 'Vendr',
 			status: 'In Progress · March 2026',
 			description:
-				'Vendr is currently under active development. A commerce-led venture built with operational clarity, modern distribution, and brand-first thinking.'
+				'Vendr is under active development — a commerce-led venture built with operational clarity, modern distribution, and brand-first thinking.'
 		}
 	];
 </script>
@@ -25,7 +25,7 @@
 	<title>Houses — VNTA</title>
 	<meta
 		name="description"
-		content="The houses under VNTA: Maison Seul, Eirvox, and Vendr. Independent ventures developed with long-term intent."
+		content="The houses under VNTA: Maison Seul, Eirvox, and Vendr — independent ventures developed with long-term intent."
 	/>
 	<meta property="og:title" content="Houses — VNTA" />
 	<meta
@@ -42,8 +42,8 @@
 		<section class="hero">
 			<h1 class="title">Houses</h1>
 			<p class="lede">
-				VNTA develops and stewards a small number of independent houses — each with its own
-				rhythm, market, and horizon.
+				VNTA develops and stewards a small number of independent houses — each with its own rhythm, market,
+				and horizon.
 			</p>
 		</section>
 
@@ -56,12 +56,12 @@
 		</section>
 
 		<!-- HOUSES LIST -->
-		<section class="section">
+		<section class="section" aria-label="VNTA Houses">
 			<div class="houses">
 				{#each houses as h}
 					<article class="house">
 						<div class="house-head">
-							<h2>{h.name}</h2>
+							<h2 class="house-name">{h.name}</h2>
 							<span class="house-status">{h.status}</span>
 						</div>
 
@@ -101,11 +101,7 @@
 		padding: 28px 32px;
 		border-radius: 18px;
 		border: 1px solid rgba(255, 255, 255, 0.12);
-		background: linear-gradient(
-			135deg,
-			rgba(255, 255, 255, 0.05),
-			rgba(255, 255, 255, 0.02)
-		);
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
 		backdrop-filter: blur(10px);
 	}
 
@@ -147,7 +143,7 @@
 		margin-bottom: 10px;
 	}
 
-	.house-head h2 {
+	.house-name {
 		margin: 0;
 		font-size: 1.6rem;
 		font-weight: 600;
