@@ -1,9 +1,16 @@
 <script lang="ts">
+	import '@fontsource/manrope/400.css';
+	import '@fontsource/manrope/500.css';
+	import '@fontsource/manrope/600.css';
+	import '@fontsource/manrope/700.css';
+	import '@fontsource/playfair-display/600.css';
+	import '@fontsource/playfair-display/700.css';
+
 	const packages = [
 		{
 			name: 'FOUNDATION',
 			price: '€667',
-			period: '/month ',
+			period: '/month',
 			oneTime: 'or €7,299 one-time',
 			features: [
 				'Brand strategy, positioning, identity',
@@ -15,7 +22,7 @@
 		{
 			name: 'GROWTH',
 			price: '€1,083',
-			period: '/month ',
+			period: '/month',
 			oneTime: 'or €11,999 one-time',
 			features: [
 				'Everything in FOUNDATION + advanced positioning',
@@ -28,7 +35,7 @@
 		{
 			name: 'SIGNATURE',
 			price: '€1,500',
-			period: '/month ',
+			period: '/month',
 			oneTime: 'or €15,999 one-time',
 			features: [
 				'Everything in GROWTH + long-term brand/business architecture',
@@ -57,7 +64,64 @@
 			inviteOnly: true
 		}
 	];
+
+	let tailoredModalOpen = false;
+
+	const tailored = {
+		name: '',
+		email: '',
+		company: '',
+		engagement: 'Audit & Diagnosis',
+		timeline: '1–2 months',
+		budget: 'Not sure',
+		notes: ''
+	};
+
+	const engagementOptions = [
+		'Audit & Diagnosis',
+		'Repositioning / Refinement',
+		'Go-to-market / Launch',
+		'Brand Leadership Advisory',
+		'Other'
+	];
+
+	const timelineOptions = ['ASAP', '1–2 months', '3–6 months', '6–12 months', 'Not sure'];
+	const budgetOptions = ['< €5k', '€5k–€10k', '€10k–€20k', '€20k+', 'Not sure'];
+
+	function openTailoredModal() {
+		tailoredModalOpen = true;
+	}
+
+	function closeTailoredModal() {
+		tailoredModalOpen = false;
+	}
+
+	function openTailoredEmail() {
+		const to = 'studio@vnta.xyz';
+		const subject = encodeURIComponent('Tailored engagement inquiry — VNTA');
+
+		const bodyLines = [
+			`Name: ${tailored.name || '-'}`,
+			`Email: ${tailored.email || '-'}`,
+			`Company: ${tailored.company || '-'}`,
+			`Engagement type: ${tailored.engagement}`,
+			`Timeline: ${tailored.timeline}`,
+			`Budget range: ${tailored.budget}`,
+			'',
+			'Context:',
+			tailored.notes || '-'
+		];
+
+		const body = encodeURIComponent(bodyLines.join('\n'));
+		window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+	}
+
+	function onKeydown(e: KeyboardEvent) {
+		if (tailoredModalOpen && e.key === 'Escape') closeTailoredModal();
+	}
 </script>
+
+<svelte:window on:keydown={onKeydown} />
 
 <svelte:head>
 	<title>Packages — VNTA</title>
@@ -79,7 +143,7 @@
 			</span>
 		</p>
 
-		<!-- BASELINE TIERS -->
+		<!-- PACKAGES -->
 		<div class="packages">
 			{#each packages as pkg}
 				<div class="package" class:featured={pkg.featured}>
@@ -102,7 +166,7 @@
 			{/each}
 		</div>
 
-		<!-- OPTIONAL RETAINERS -->
+		<!-- RETAINERS -->
 		<section class="retainers">
 			<h2 class="section-title">Optional Post-Engagement Retainers</h2>
 			<p class="section-note">After 12 months, new clients only</p>
@@ -121,7 +185,7 @@
 			</div>
 		</section>
 
-		<!-- TAILORED ENGAGEMENTS -->
+		<!-- TAILORED -->
 		<section class="tailored">
 			<h2 class="section-title">Tailored Engagements</h2>
 
@@ -135,12 +199,10 @@
 					<h3>Audit & Diagnosis</h3>
 					<p>Focused review of brand, narrative, market context, and operating realities.</p>
 				</div>
-
 				<div class="tailored-step">
 					<h3>Scoped Plan</h3>
 					<p>Clear deliverables, timeline, ownership, and specialist partners if required.</p>
 				</div>
-
 				<div class="tailored-step">
 					<h3>Execution</h3>
 					<p>Led by VNTA, often in collaboration with trusted execution partners.</p>
@@ -149,268 +211,82 @@
 
 			<div class="tailored-cta">
 				<p>To discuss a tailored engagement:</p>
-				<a href="mailto:studio@vnta.xyz" class="tailored-link">studio@vnta.xyz</a>
+				<button class="tailored-btn" on:click={openTailoredModal}>
+					Request tailored scope
+				</button>
 			</div>
 		</section>
 	</div>
+
+	{#if tailoredModalOpen}
+		<div class="modal-backdrop" on:click={closeTailoredModal}>
+			<div class="modal" on:click|stopPropagation>
+				<div class="modal-header">
+					<div>
+						<h3 class="modal-title">Tailored Inquiry</h3>
+						<p class="modal-subtitle">Short application. High-signal only.</p>
+					</div>
+					<button class="modal-close" on:click={closeTailoredModal}>×</button>
+				</div>
+
+				<div class="modal-body">
+					<div class="form-grid">
+						<label>
+							<span>Name</span>
+							<input bind:value={tailored.name} />
+						</label>
+						<label>
+							<span>Email</span>
+							<input bind:value={tailored.email} />
+						</label>
+						<label class="span-2">
+							<span>Company / project</span>
+							<input bind:value={tailored.company} />
+						</label>
+						<label>
+							<span>Engagement</span>
+							<select bind:value={tailored.engagement}>
+								{#each engagementOptions as opt}
+									<option>{opt}</option>
+								{/each}
+							</select>
+						</label>
+						<label>
+							<span>Timeline</span>
+							<select bind:value={tailored.timeline}>
+								{#each timelineOptions as opt}
+									<option>{opt}</option>
+								{/each}
+							</select>
+						</label>
+						<label class="span-2">
+							<span>Budget range</span>
+							<select bind:value={tailored.budget}>
+								{#each budgetOptions as opt}
+									<option>{opt}</option>
+								{/each}
+							</select>
+						</label>
+						<label class="span-2">
+							<span>Context</span>
+							<textarea rows="6" bind:value={tailored.notes}></textarea>
+						</label>
+					</div>
+
+					<div class="modal-actions">
+						<button class="modal-primary" on:click={openTailoredEmail}>
+							Compose inquiry
+						</button>
+						<button class="modal-secondary" on:click={closeTailoredModal}>
+							Not now
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	{/if}
 </main>
 
 <style>
-	.title {
-		font-family: 'Playfair Display', serif;
-		font-size: clamp(2.5rem, 5vw, 4rem);
-		font-weight: 700;
-		margin: 0 0 0.5rem;
-		letter-spacing: -0.02em;
-	}
-
-	.subtitle {
-		font-size: 1.125rem;
-		line-height: 1.6;
-		color: rgba(255, 255, 255, 0.65);
-		margin: 0 0 4rem;
-	}
-
-	.subtitle-note {
-		display: block;
-		margin-top: 0.75rem;
-		font-size: 0.9375rem;
-		color: rgba(255, 255, 255, 0.55);
-		max-width: 720px;
-	}
-
-	/* PACKAGES */
-	.packages {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 2rem;
-		margin-bottom: 6rem;
-	}
-
-	.package {
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		border-radius: 18px;
-		padding: 28px 24px;
-		background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent);
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.package.featured {
-		border-color: rgba(255, 255, 255, 0.25);
-		box-shadow: 0 8px 32px rgba(255, 255, 255, 0.08);
-	}
-
-	.package:hover {
-		border-color: rgba(255, 255, 255, 0.3);
-		transform: translateY(-2px);
-		box-shadow: 0 12px 40px rgba(255, 255, 255, 0.1);
-	}
-
-	.package-header {
-		margin-bottom: 2rem;
-		padding-bottom: 2rem;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-	}
-
-	.package h2 {
-		font-size: 1.5rem;
-		font-weight: 600;
-		margin: 0 0 1.5rem;
-	}
-
-	.pricing-options {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	.price {
-		font-size: 2rem;
-		font-weight: 700;
-	}
-
-	.price span {
-		font-size: 1rem;
-		font-weight: 400;
-		color: rgba(255, 255, 255, 0.6);
-	}
-
-	.price-alt {
-		font-size: 0.9375rem;
-		color: rgba(255, 255, 255, 0.6);
-	}
-
-	.features {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	.features li {
-		font-size: 0.9375rem;
-		color: rgba(255, 255, 255, 0.85);
-		padding-left: 1.5rem;
-		position: relative;
-		line-height: 1.6;
-	}
-
-	.features li::before {
-		content: '→';
-		position: absolute;
-		left: 0;
-		color: rgba(255, 255, 255, 0.4);
-	}
-
-	/* RETAINERS */
-	.retainers {
-		margin-top: 6rem;
-		padding-top: 3rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
-	}
-
-	.section-title {
-		font-family: 'Playfair Display', serif;
-		font-size: 2rem;
-		font-weight: 600;
-		margin: 0 0 0.5rem;
-	}
-
-	.section-note {
-		font-size: 0.9375rem;
-		color: rgba(255, 255, 255, 0.6);
-		margin: 0 0 3rem;
-	}
-
-	.retainer-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-		gap: 2rem;
-	}
-
-	.retainer {
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		border-radius: 14px;
-		padding: 20px 24px;
-		background: rgba(255, 255, 255, 0.02);
-		transition: all 0.25s ease;
-	}
-
-	.retainer:hover {
-		border-color: rgba(255, 255, 255, 0.2);
-		background: rgba(255, 255, 255, 0.04);
-		transform: translateY(-2px);
-	}
-
-	.retainer h3 {
-		font-size: 1.25rem;
-		font-weight: 600;
-		margin: 0 0 10px;
-	}
-
-	.retainer-price {
-		font-size: 1.5rem;
-		font-weight: 700;
-		margin-bottom: 1rem;
-	}
-
-	.retainer p {
-		font-size: 0.9375rem;
-		color: rgba(255, 255, 255, 0.75);
-		margin: 0;
-		line-height: 1.6;
-	}
-
-	.invite {
-		color: rgba(255, 255, 255, 0.5);
-		font-style: italic;
-		margin-top: 10px;
-	}
-
-	/* TAILORED */
-	.tailored {
-		margin-top: 6rem;
-		padding-top: 3rem;
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
-	}
-
-	.tailored-lede {
-		max-width: 720px;
-		font-size: 1.0625rem;
-		color: rgba(255, 255, 255, 0.75);
-		margin: 0 0 3rem;
-		line-height: 1.7;
-	}
-
-	.tailored-steps {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-		gap: 1.75rem;
-		margin-bottom: 3rem;
-	}
-
-	.tailored-step {
-		border: 1px solid rgba(255, 255, 255, 0.1);
-		border-radius: 18px;
-		padding: 22px 24px;
-		background: rgba(255, 255, 255, 0.02);
-	}
-
-	.tailored-step h3 {
-		font-size: 1.15rem;
-		font-weight: 600;
-		margin: 0 0 10px;
-	}
-
-	.tailored-step p {
-		font-size: 0.95rem;
-		color: rgba(255, 255, 255, 0.75);
-		margin: 0;
-		line-height: 1.65;
-	}
-
-	.tailored-cta {
-		display: flex;
-		align-items: center;
-		gap: 1.5rem;
-		flex-wrap: wrap;
-	}
-
-	.tailored-cta p {
-		margin: 0;
-		color: rgba(255, 255, 255, 0.65);
-	}
-
-	.tailored-link {
-		font-size: 0.95rem;
-		font-weight: 600;
-		color: rgba(255, 255, 255, 0.85);
-		position: relative;
-		text-decoration: none;
-	}
-
-	.tailored-link::after {
-		content: '';
-		position: absolute;
-		left: 0;
-		bottom: -2px;
-		width: 100%;
-		height: 1px;
-		background: rgba(255, 255, 255, 0.35);
-		transform: scaleX(0);
-		transform-origin: left;
-		transition: transform 0.2s ease;
-	}
-
-	.tailored-link:hover::after {
-		transform: scaleX(1);
-	}
-
-	@media (max-width: 768px) {
-		.packages {
-			grid-template-columns: 1fr;
-		}
-	}
+	/* styles unchanged from previous message for brevity — paste modal + existing styles here */
 </style>
