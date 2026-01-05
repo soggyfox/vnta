@@ -3,18 +3,24 @@
 		{
 			name: 'Maison Seul',
 			status: 'Coming 2027',
+			domain: 'maisonseul.ie',
+			href: 'https://maisonseul.ie',
 			description:
 				'A house built around restraint, form, and cultural permanence. Maison Seul moves slowly — designed for longevity, not velocity.'
 		},
 		{
 			name: 'Eirvox',
 			status: 'Launching Summer 2026',
+			domain: 'eirvox.ie',
+			href: 'https://eirvox.ie',
 			description:
 				'A communications and signal platform emerging from VNTA. Eirvox explores voice, narrative, and modern transmission — built to scale quietly.'
 		},
 		{
 			name: 'Vendr',
 			status: 'In Progress · March 2026',
+			domain: 'vendr.ie',
+			href: 'https://vendr.ie',
 			description:
 				'Vendr is under active development — a commerce-led venture built with operational clarity, modern distribution, and brand-first thinking.'
 		}
@@ -28,17 +34,14 @@
 		content="The houses under VNTA: Maison Seul, Eirvox, and Vendr — independent ventures developed with long-term intent."
 	/>
 	<meta property="og:title" content="Houses — VNTA" />
-	<meta
-		property="og:description"
-		content="Independent ventures developed under VNTA with long-term intent."
-	/>
+	<meta property="og:description" content="Independent ventures developed under VNTA with long-term intent." />
 	<meta property="og:type" content="website" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 </svelte:head>
 
 <main class="page-container">
 	<div class="content content-width">
-		<!-- HERO -->
+		<!-- HERO (editorial) -->
 		<section class="hero">
 			<h1 class="title">Houses</h1>
 			<p class="lede">
@@ -47,137 +50,206 @@
 			</p>
 		</section>
 
-		<!-- STATEMENT -->
-		<section class="statement">
+		<!-- STATEMENT (big soft panel) -->
+		<section class="statement" aria-label="Statement">
 			<p>
 				Not a portfolio.<br />
 				A lineage.
 			</p>
 		</section>
 
-		<!-- HOUSES LIST -->
+		<!-- LIST (editorial rows, not cards) -->
 		<section class="section" aria-label="VNTA Houses">
-			<div class="houses">
-				{#each houses as h}
-					<article class="house">
-						<div class="house-head">
-							<h2 class="house-name">{h.name}</h2>
-							<span class="house-status">{h.status}</span>
+			<div class="rows">
+				{#each houses as h (h.name)}
+					<article class="row">
+						<div class="row-top">
+							<div class="row-left">
+								<h2 class="row-name">{h.name}</h2>
+								<span class="row-status">{h.status}</span>
+							</div>
+
+							<a class="row-domain" href={h.href} target="_blank" rel="noreferrer" aria-label={`Open ${h.domain}`}>
+								<span class="row-domain__text">{h.domain}</span>
+								<span class="row-domain__arrow" aria-hidden="true">↗</span>
+							</a>
 						</div>
 
-						<p class="house-description">{h.description}</p>
+						<p class="row-desc">{h.description}</p>
 					</article>
 				{/each}
 			</div>
+
+			<p class="footnote">
+				Release windows are indicative and may shift. Marks reflect current filing status: Maison Seul® · Eirvox™ · Vendr™.
+			</p>
 		</section>
 	</div>
 </main>
 
 <style>
-	/* Hero */
+	/* HERO */
 	.hero {
 		margin-bottom: 56px;
 	}
 
 	.title {
 		font-family: 'Playfair Display', serif;
-		font-size: clamp(2.6rem, 5vw, 4rem);
+		font-size: clamp(3.1rem, 6vw, 5rem);
 		font-weight: 700;
-		margin: 0 0 0.75rem;
+		margin: 0 0 0.9rem;
 		letter-spacing: -0.02em;
+		line-height: 1.02;
 	}
 
 	.lede {
 		margin: 0;
-		font-size: 1.0625rem;
+		font-size: 1.06rem;
 		line-height: 1.7;
-		color: rgba(255, 255, 255, 0.78);
-		max-width: 780px;
+		color: rgba(255, 255, 255, 0.72);
+		max-width: 860px;
 	}
 
-	/* Statement */
+	/* STATEMENT (matches your screenshot vibe) */
 	.statement {
 		margin: 0 0 72px;
-		padding: 28px 32px;
-		border-radius: 18px;
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+		border-radius: 22px;
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		background: radial-gradient(120% 120% at 15% 10%, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
 		backdrop-filter: blur(10px);
+		box-shadow: 0 28px 90px rgba(0, 0, 0, 0.55);
+		padding: 44px 40px;
 	}
 
 	.statement p {
 		margin: 0;
 		font-family: 'Playfair Display', serif;
-		font-size: 1.75rem;
-		line-height: 1.35;
-		color: rgba(255, 255, 255, 0.92);
+		font-size: clamp(2.05rem, 3vw, 2.75rem);
+		line-height: 1.2;
+		color: rgba(255, 255, 255, 0.94);
 		letter-spacing: -0.01em;
 	}
 
-	/* Houses */
+	/* SECTION */
 	.section {
 		margin-bottom: 72px;
 	}
 
-	.houses {
+	.rows {
 		display: flex;
 		flex-direction: column;
-		gap: 36px;
+		gap: 0;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
 	}
 
-	.house {
-		padding-top: 28px;
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	/* Each row is editorial (no card box) */
+	.row {
+		padding: 26px 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 	}
 
-	.house:first-child {
-		border-top: none;
-		padding-top: 0;
-	}
-
-	.house-head {
+	.row-top {
 		display: flex;
 		align-items: baseline;
 		justify-content: space-between;
 		gap: 18px;
-		margin-bottom: 10px;
 	}
 
-	.house-name {
+	.row-left {
+		display: flex;
+		align-items: baseline;
+		gap: 14px;
+		flex-wrap: wrap;
+	}
+
+	.row-name {
 		margin: 0;
-		font-size: 1.6rem;
-		font-weight: 600;
+		font-size: 1.22rem;
+		font-weight: 650;
 		letter-spacing: -0.01em;
+		color: rgba(255, 255, 255, 0.92);
 	}
 
-	.house-status {
-		font-size: 0.75rem;
-		letter-spacing: 0.14em;
+	.row-status {
+		font-size: 0.72rem;
+		letter-spacing: 0.16em;
 		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.55);
+		color: rgba(255, 255, 255, 0.46);
 		white-space: nowrap;
 	}
 
-	.house-description {
-		margin: 0;
-		color: rgba(255, 255, 255, 0.75);
-		line-height: 1.65;
-		max-width: 900px;
+	/* Right-side domain (muted, editorial) */
+	.row-domain {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 8px;
+		text-decoration: none;
+		padding: 8px 10px;
+		border-radius: 14px;
+		background: rgba(255, 255, 255, 0.02);
+		border: 1px solid rgba(255, 255, 255, 0.06);
+		transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+	}
+
+	.row-domain__text {
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+		font-size: 0.72rem;
+		letter-spacing: 0.22em;
+		text-transform: lowercase;
+		color: rgba(255, 255, 255, 0.48);
+	}
+
+	.row-domain__arrow {
+		font-size: 0.8rem;
+		color: rgba(255, 255, 255, 0.28);
+		transition: color 0.2s ease, transform 0.2s ease;
+	}
+
+	.row-domain:hover {
+		background: rgba(255, 255, 255, 0.03);
+		border-color: rgba(255, 255, 255, 0.12);
+		transform: translateY(-1px);
+	}
+
+	.row-domain:hover .row-domain__text {
+		color: rgba(255, 255, 255, 0.78);
+	}
+
+	.row-domain:hover .row-domain__arrow {
+		color: rgba(255, 255, 255, 0.55);
+		transform: translateY(-1px);
+	}
+
+	.row-desc {
+		margin: 12px 0 0;
+		color: rgba(255, 255, 255, 0.70);
+		line-height: 1.7;
+		max-width: 960px;
+		font-size: 0.98rem;
+	}
+
+	.footnote {
+		margin: 18px 0 0;
+		color: rgba(255, 255, 255, 0.40);
+		font-size: 0.82rem;
+		line-height: 1.55;
+		max-width: 80ch;
 	}
 
 	@media (max-width: 768px) {
 		.statement {
-			padding: 22px 20px;
+			padding: 28px 22px;
+			border-radius: 18px;
 		}
 
-		.statement p {
-			font-size: 1.5rem;
-		}
-
-		.house-head {
+		.row-top {
 			flex-direction: column;
 			align-items: flex-start;
-			gap: 6px;
+			gap: 10px;
+		}
+
+		.row-domain {
+			padding: 7px 9px;
 		}
 	}
 </style>
