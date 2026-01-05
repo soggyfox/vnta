@@ -52,19 +52,19 @@
 	const faqs = [
 		{
 			q: 'Who is this for?',
-			a: 'Founders who have something real, but need structure, leadership, and consistent execution to grow it properly.'
+			a: 'Founders who want a clear brand direction and a steady execution pace — without the mess.'
 		},
 		{
 			q: 'Do you replace an internal team?',
-			a: 'No. We lead and coordinate the work, whether that means building a team or guiding the one you already have.'
+			a: 'No. We lead and coordinate. Sometimes we help you build the team; sometimes we guide the team you already have.'
 		},
 		{
 			q: 'What do monthly deliverables look like?',
-			a: 'Defined roadmap with owners and dates: brand assets, narrative systems, launch/campaign work, partnerships, or operational brand infrastructure — depending on phase.'
+			a: 'Defined outcomes with owners and dates: brand assets, narrative systems, launches, partnerships, or operational brand infrastructure — depending on phase.'
 		},
 		{
 			q: 'What happens after 12 months?',
-			a: 'You keep the system and the team. Optional retainers exist for continuity, oversight, or stewardship (invite-only for the highest tier).'
+			a: 'You keep the system and the team. Optional retainers exist for continuity, oversight, or stewardship (invite-only at the top tier).'
 		}
 	];
 </script>
@@ -174,11 +174,11 @@
 			<div class="faq">
 				{#each faqs as f}
 					<details class="faq-item">
-						<summary>
+						<summary class="faq-summary">
 							<span class="faq-q">{f.q}</span>
 							<span class="faq-plus" aria-hidden="true">+</span>
 						</summary>
-						<p>{f.a}</p>
+						<p class="faq-a">{f.a}</p>
 					</details>
 				{/each}
 			</div>
@@ -197,7 +197,205 @@
 </main>
 
 <style>
-	/* FAQ */
+	/* Hero */
+	.hero {
+		margin-bottom: 56px;
+	}
+
+	.title {
+		font-family: 'Playfair Display', serif;
+		font-size: clamp(2.5rem, 5vw, 4rem);
+		font-weight: 700;
+		margin: 0 0 0.5rem;
+		letter-spacing: -0.02em;
+	}
+
+	.subtitle {
+		font-size: 1.125rem;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.65);
+		margin: 0 0 2.5rem;
+	}
+
+	.lede {
+		margin: 0;
+		font-size: 1.0625rem;
+		line-height: 1.7;
+		color: rgba(255, 255, 255, 0.8);
+		max-width: 820px;
+	}
+
+	/* Statement card */
+	.statement {
+		margin: 0 0 64px;
+		padding: 28px 32px;
+		border-radius: 18px;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+		backdrop-filter: blur(10px);
+		box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+	}
+
+	.statement p {
+		margin: 0;
+		font-family: 'Playfair Display', serif;
+		font-size: 1.75rem;
+		line-height: 1.35;
+		color: rgba(255, 255, 255, 0.92);
+		letter-spacing: -0.01em;
+	}
+
+	/* Sections */
+	.section {
+		margin: 0 0 72px;
+	}
+
+	.section-head {
+		margin-bottom: 24px;
+	}
+
+	.section-head h2 {
+		margin: 0 0 10px;
+		font-family: 'Playfair Display', serif;
+		font-size: 2rem;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+
+	.section-head p {
+		margin: 0;
+		color: rgba(255, 255, 255, 0.65);
+		max-width: 900px;
+		line-height: 1.6;
+	}
+
+	/* Cards grid */
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5rem;
+	}
+
+	.card {
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 18px;
+		padding: 24px 22px;
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent);
+		transition: all 0.25s ease;
+	}
+
+	.card:hover {
+		border-color: rgba(255, 255, 255, 0.2);
+		transform: translateY(-2px);
+		box-shadow: 0 12px 40px rgba(255, 255, 255, 0.06);
+	}
+
+	.card h3 {
+		margin: 0 0 10px;
+		font-size: 1.15rem;
+		font-weight: 600;
+	}
+
+	.card p {
+		margin: 0;
+		color: rgba(255, 255, 255, 0.75);
+		line-height: 1.65;
+	}
+
+	/* Timeline */
+	.timeline {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem;
+	}
+
+	.timeline-card {
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 18px;
+		padding: 22px 22px;
+		background: rgba(255, 255, 255, 0.02);
+		transition: all 0.25s ease;
+	}
+
+	.timeline-card:hover {
+		border-color: rgba(255, 255, 255, 0.2);
+		background: rgba(255, 255, 255, 0.03);
+		transform: translateY(-2px);
+	}
+
+	.phase-top {
+		margin-bottom: 12px;
+	}
+
+	.phase-pill {
+		display: inline-flex;
+		align-items: center;
+		padding: 8px 12px;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: rgba(255, 255, 255, 0.02);
+		color: rgba(255, 255, 255, 0.85);
+		font-size: 0.85rem;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.timeline-card p {
+		margin: 0;
+		color: rgba(255, 255, 255, 0.78);
+		line-height: 1.65;
+	}
+
+	/* Included / Not included split */
+	.split {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem;
+	}
+
+	.panel {
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 18px;
+		padding: 22px 22px;
+		background: rgba(255, 255, 255, 0.02);
+	}
+
+	.panel--muted {
+		background: rgba(255, 255, 255, 0.015);
+		border-color: rgba(255, 255, 255, 0.08);
+	}
+
+	.panel h3 {
+		margin: 0 0 14px;
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	.list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.list li {
+		position: relative;
+		padding-left: 1.5rem;
+		color: rgba(255, 255, 255, 0.78);
+		line-height: 1.6;
+	}
+
+	.list li::before {
+		content: '→';
+		position: absolute;
+		left: 0;
+		color: rgba(255, 255, 255, 0.4);
+	}
+
+	/* FAQ (restore the old layout — only add the +) */
 	.faq {
 		display: flex;
 		flex-direction: column;
@@ -211,39 +409,112 @@
 		overflow: hidden;
 	}
 
-	.faq-item summary {
+	.faq-summary {
 		cursor: pointer;
-		font-weight: 600;
-		color: rgba(255, 255, 255, 0.9);
 		list-style: none;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 18px;
+		gap: 14px;
 		padding: 16px 18px;
+		font-weight: 600;
+		color: rgba(255, 255, 255, 0.9);
 	}
 
-	.faq-item summary::-webkit-details-marker {
+	.faq-summary::-webkit-details-marker {
 		display: none;
 	}
 
+	.faq-q {
+		display: block;
+	}
+
 	.faq-plus {
-		font-size: 1.1rem;
-		color: rgba(255, 255, 255, 0.6);
-		transition: transform 0.18s ease, color 0.18s ease;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 26px;
+		height: 26px;
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: rgba(255, 255, 255, 0.02);
+		color: rgba(255, 255, 255, 0.7);
+		font-size: 1.05rem;
+		line-height: 1;
+		transition: transform 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+		flex: 0 0 auto;
 	}
 
 	.faq-item[open] .faq-plus {
 		transform: rotate(45deg);
-		color: rgba(255, 255, 255, 0.9);
+		color: rgba(255, 255, 255, 0.92);
+		border-color: rgba(255, 255, 255, 0.2);
 	}
 
-	.faq-item p {
+	.faq-a {
 		margin: 0;
-		padding: 12px 18px 16px;
-		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		padding: 0 18px 16px;
 		color: rgba(255, 255, 255, 0.75);
 		line-height: 1.65;
 		max-width: 900px;
+	}
+
+	/* CTA */
+	.cta {
+		margin: 0 0 72px;
+	}
+
+	.cta-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+		padding: 22px 24px;
+		border-radius: 18px;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+	}
+
+	.cta-text h2 {
+		margin: 0 0 8px;
+		font-family: 'Playfair Display', serif;
+		font-size: 1.75rem;
+		font-weight: 600;
+	}
+
+	.cta-text p {
+		margin: 0;
+		color: rgba(255, 255, 255, 0.65);
+		line-height: 1.6;
+	}
+
+	/* Responsive */
+	@media (max-width: 900px) {
+		.grid {
+			grid-template-columns: 1fr;
+		}
+
+		.timeline {
+			grid-template-columns: 1fr;
+		}
+
+		.split {
+			grid-template-columns: 1fr;
+		}
+
+		.cta-inner {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.statement {
+			padding: 22px 20px;
+		}
+
+		.statement p {
+			font-size: 1.5rem;
+		}
 	}
 </style>
