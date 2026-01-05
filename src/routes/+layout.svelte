@@ -8,7 +8,7 @@
 
 	import { base } from '$app/paths';
 	import { page } from '$app/stores';
-	import { fade, fly } from 'svelte/transition';
+	import { fly } from 'svelte/transition';
 
 	let { children } = $props();
 
@@ -59,8 +59,11 @@
 	{#key $page.url.pathname}
 		<div
 			class="page"
-			in:fade={{ duration: shouldAnimate($page.url.pathname) ? 160 : 0 }}
-			in:fly={{ y: shouldAnimate($page.url.pathname) ? 10 : 0, duration: shouldAnimate($page.url.pathname) ? 180 : 0 }}
+			in:fly={{
+				y: shouldAnimate($page.url.pathname) ? 10 : 0,
+				opacity: 0,
+				duration: shouldAnimate($page.url.pathname) ? 180 : 0
+			}}
 		>
 			<!-- GLOBAL HEADER -->
 			<header class="site-header" aria-label="VNTA header">
@@ -548,7 +551,6 @@
 		color: rgba(255, 255, 255, 0.95);
 	}
 
-	/* RESPONSIVE */
 	@media (max-width: 900px) {
 		.nav {
 			gap: 18px;
