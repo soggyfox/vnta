@@ -261,13 +261,19 @@
 
 <!-- MODAL (ported to body, does not affect page layout) -->
 {#if tailoredModalOpen}
-	<div use:portal class="vnta-modal-backdrop" on:click={closeTailoredModal}>
+	<div
+		use:portal
+		class="vnta-modal-backdrop"
+		on:pointerdown={closeTailoredModal}
+		on:click={closeTailoredModal}
+	>
 		<div
 			class="vnta-modal"
 			role="dialog"
 			aria-modal="true"
 			aria-label="Tailored engagement inquiry"
-			on:click|stopPropagation
+			on:pointerdown|stopPropagation={() => {}}
+			on:click|stopPropagation={() => {}}
 		>
 			<div class="vnta-modal-header">
 				<div class="vnta-modal-title-wrap">
@@ -275,7 +281,6 @@
 					<p class="vnta-modal-subtitle">Short application. High-signal only.</p>
 				</div>
 
-				<!-- FIX: type="button" + stopPropagation -->
 				<button
 					class="vnta-modal-close"
 					type="button"
@@ -350,7 +355,6 @@
 						Compose inquiry
 					</button>
 
-					<!-- FIX: type="button" + stopPropagation -->
 					<button
 						class="vnta-modal-secondary"
 						type="button"
@@ -614,12 +618,6 @@
 
 	/* ========= MODAL (mobile-safe) ========= */
 
-	/* KEY MOBILE FIXES:
-	   - backdrop scrolls (overflow:auto)
-	   - modal constrained to viewport height (max-height)
-	   - modal body scrolls (overflow:auto)
-	   - header sticky so close is always reachable
-	*/
 	.vnta-modal-backdrop {
 		position: fixed;
 		inset: 0;
