@@ -28,11 +28,15 @@
 	];
 
 	// Footer routes (internal)
+	// Primary footer should stay "meaningful" and quiet.
+	// Legal/compliance links belong in a low-contrast inline row beneath.
 	const footerNav = {
 		houses: { label: 'Houses', href: `${base}/houses` },
-		company: [
+		companyPrimary: [
 			{ label: 'Approach', href: `${base}/approach` },
-			{ label: 'Horizon', href: `${base}/horizon` },
+			{ label: 'Horizon', href: `${base}/horizon` }
+		],
+		legalInline: [
 			{ label: 'Careers', href: `${base}/careers` },
 			{ label: 'Legal', href: `${base}/legal` },
 			{ label: 'Privacy', href: `${base}/privacy` },
@@ -168,15 +172,15 @@
 				{@render children()}
 			</main>
 
-			<!-- GLOBAL FOOTER (LVMH-ish: minimal columns, internal pages) -->
+			<!-- GLOBAL FOOTER (primary: meaning / secondary: compliance) -->
 			<footer class="site-footer" aria-label="VNTA footer">
 				<div class="site-footer__inner">
 					<!-- Slogan / mark -->
 					<p class="footer-slogan">Áilleacht na Díomhaointe.</p>
 
 					<div class="footer-grid">
-						<!-- Houses -->
-						<div class="footer-col" aria-label="Houses">
+						<!-- Lineage -->
+						<div class="footer-col" aria-label="Lineage">
 							<p class="footer-title">Lineage</p>
 
 							<a class="footer-link" href={footerNav.houses.href}>
@@ -184,12 +188,12 @@
 							</a>
 						</div>
 
-						<!-- The Company -->
+						<!-- The Company (primary only) -->
 						<div class="footer-col" aria-label="The Company">
 							<p class="footer-title">The Company</p>
 
 							<div class="footer-links">
-								{#each footerNav.company as l}
+								{#each footerNav.companyPrimary as l}
 									<a class="footer-link footer-link--plain" href={l.href}>{l.label}</a>
 								{/each}
 							</div>
@@ -199,7 +203,6 @@
 						<div class="footer-col" aria-label="Contact">
 							<p class="footer-title">Contact</p>
 
-							<!-- Link is the CTA; email stays hidden -->
 							<a class="footer-link footer-link--plain" href="mailto:studio@vnta.xyz" aria-label="Email VNTA">
 								Email Us
 							</a>
@@ -213,7 +216,7 @@
 											<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
 												<path
 													fill="currentColor"
-													d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4Zm-4.5 4a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM17.75 6.1a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"
+													d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4Zm-4.5 4a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM17.75 6.1a1 1.0 0 1 1 0 2 1 1 0 0 1 0-2Z"
 												/>
 											</svg>
 										{:else}
@@ -230,7 +233,19 @@
 						</div>
 					</div>
 
-					<p class="footer-copy">© {yearLabel} Vantanéant International Ltd.</p>
+					<!-- Secondary legal row -->
+					<div class="footer-bottom">
+						<p class="footer-copy">© {yearLabel} Vantanéant International Ltd.</p>
+
+						<nav class="footer-legal" aria-label="Legal links">
+							{#each footerNav.legalInline as l, i}
+								<a class="footer-legal-link" href={l.href}>{l.label}</a>
+								{#if i < footerNav.legalInline.length - 1}
+									<span class="footer-legal-dot" aria-hidden="true">·</span>
+								{/if}
+							{/each}
+						</nav>
+					</div>
 				</div>
 			</footer>
 		</div>
@@ -537,10 +552,6 @@
 		justify-content: flex-start;
 	}
 
-	.footer-arrow {
-		color: rgba(255, 255, 255, 0.45);
-	}
-
 	.footer-muted {
 		margin: 10px 0 0;
 		color: rgba(255, 255, 255, 0.45);
@@ -575,11 +586,44 @@
 		color: rgba(255, 255, 255, 0.95);
 	}
 
+	/* Secondary row */
+	.footer-bottom {
+		margin-top: 18px;
+		padding-top: 14px;
+		border-top: 1px solid rgba(255, 255, 255, 0.06);
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 14px;
+		flex-wrap: wrap;
+	}
+
 	.footer-copy {
-		margin: 18px 0 0;
+		margin: 0;
 		color: rgba(255, 255, 255, 0.34);
 		font-size: 0.78rem;
 		letter-spacing: 0.02em;
+	}
+
+	.footer-legal {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.footer-legal-link {
+		font-size: 0.78rem;
+		color: rgba(255, 255, 255, 0.38);
+		letter-spacing: 0.02em;
+		transition: color 0.2s ease;
+	}
+
+	.footer-legal-link:hover {
+		color: rgba(255, 255, 255, 0.7);
+	}
+
+	.footer-legal-dot {
+		color: rgba(255, 255, 255, 0.22);
 	}
 
 	@media (max-width: 900px) {
