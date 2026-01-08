@@ -6,12 +6,12 @@
 	<title>Terms — VNTA</title>
 	<meta
 		name="description"
-		content="Terms and conditions governing engagements with Vantanéant International Ltd."
+		content="Engagement terms and commercial framework governing work with VNTA."
 	/>
 	<meta property="og:title" content="Terms — VNTA" />
 	<meta
 		property="og:description"
-		content="Terms and conditions governing engagements with Vantanéant International Ltd."
+		content="Engagement terms and commercial framework governing work with VNTA."
 	/>
 	<meta property="og:type" content="website" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,11 +21,15 @@
 	<div class="content content-width">
 		<section class="hero">
 			<h1 class="title">Terms</h1>
-			<p class="subtitle">Working terms & legal framework</p>
+			<p class="subtitle">Engagement terms & commercial framework</p>
 
 			<p class="lede">
-				These terms govern all engagements with VNTA (Vantanéant International Ltd).
-				They are written in plain language and reflect how we actually work.
+				These terms describe how VNTA (Vantanéant International Ltd) typically works with
+				clients. They are provided for clarity and transparency.
+				<br /><br />
+				Where a written agreement, statement of work, or contract is issued and signed,
+				that document governs the engagement and takes precedence over these terms in the
+				event of any inconsistency.
 			</p>
 		</section>
 
@@ -33,108 +37,151 @@
 			<h2>1. About VNTA</h2>
 			<p>
 				VNTA is the trading name of <strong>Vantanéant International Ltd</strong>, an Irish
-				company founded in 2025.
-			</p>
-			<p>
-				In 2026, the business was rebranded from <em>Nadyr Entity Ltd</em> to
-				<strong>Vantanéant International Ltd</strong>. All rights, obligations, and
-				continuity remain unchanged.
+				company. References to “VNTA”, “we”, “us”, or “our” refer to Vantanéant International
+				Ltd unless stated otherwise.
 			</p>
 		</section>
 
 		<section class="section">
-			<h2>2. Services</h2>
+			<h2>2. Formation of engagements</h2>
 			<p>
-				VNTA provides brand leadership, strategic direction, and execution oversight.
-				Services are delivered through fixed-term engagements, typically spanning
-				multiple months.
+				Engagements are formed only once scope, duration, fees, and commercial terms are
+				agreed in writing. This may be via a contract, proposal acceptance, statement of
+				work, or similar written confirmation.
 			</p>
 			<p>
-				We are not an advisory-only consultancy. Where engaged, VNTA leads decision-making,
-				sets direction, and coordinates execution directly.
-			</p>
-		</section>
-
-		<section class="section">
-			<h2>3. Engagements & Fees</h2>
-			<p>
-				All engagements are agreed in writing before commencement. Fees, scope, duration,
-				and payment schedules are defined per engagement.
-			</p>
-			<p>
-				Unless otherwise stated, fees are payable in advance and are non-refundable once
-				work has commenced.
+				VNTA is not obliged to commence work until an engagement is formally agreed and any
+				required upfront payment is received.
 			</p>
 		</section>
 
 		<section class="section">
-			<h2>4. Client Responsibilities</h2>
+			<h2>3. Services & working model</h2>
 			<p>
-				Clients agree to provide timely access to information, personnel, and materials
-				required for the engagement.
+				VNTA provides brand leadership, strategic direction, and execution oversight. Where
+				engaged, VNTA operates as a hands-on partner and may lead decision-making within the
+				agreed scope.
 			</p>
 			<p>
-				Delays caused by missing inputs or approvals may affect timelines without penalty
-				to VNTA.
-			</p>
-		</section>
-
-		<section class="section">
-			<h2>5. Intellectual Property</h2>
-			<p>
-				Unless otherwise agreed, all final deliverables created specifically for the
-				client become the client’s property upon full payment.
-			</p>
-			<p>
-				VNTA retains the right to reference work in portfolios, case studies, and internal
-				documentation unless explicitly restricted.
+				Services may be delivered directly by VNTA or through trusted collaborators,
+				partners, or specialist contributors, where appropriate to the engagement.
 			</p>
 		</section>
 
 		<section class="section">
-			<h2>6. Confidentiality</h2>
+			<h2>4. Scope & change control</h2>
 			<p>
-				Both parties agree to keep confidential information private and not disclose it
-				to third parties without prior consent.
+				The scope of work is defined per engagement. Any material change to scope, timelines,
+				or deliverables must be agreed in writing.
+			</p>
+			<p>
+				Additional work outside the agreed scope may require revised fees, timelines, or
+				a separate agreement.
 			</p>
 		</section>
 
 		<section class="section">
-			<h2>7. Limitation of Liability</h2>
+			<h2>5. Fees, invoicing & payment</h2>
 			<p>
-				VNTA is not liable for indirect, incidental, or consequential damages arising from
-				the use of its services.
+				Fees, payment schedules, and invoicing terms are defined per engagement. Unless
+				otherwise agreed, fees are payable in advance.
+			</p>
+			<p>
+				Fees are non-refundable once work has commenced, except where explicitly agreed in
+				writing. VNTA reserves the right to suspend work in the event of late or non-payment.
+			</p>
+		</section>
+
+		<section class="section">
+			<h2>6. Client responsibilities</h2>
+			<p>
+				Clients agree to provide timely access to information, materials, approvals, and
+				personnel reasonably required for the engagement.
+			</p>
+			<p>
+				Delays caused by missing inputs, late feedback, or withheld approvals may impact
+				timelines without penalty to VNTA.
+			</p>
+		</section>
+
+		<section class="section">
+			<h2>7. Deliverables & acceptance</h2>
+			<p>
+				Deliverables are considered accepted once delivered in accordance with the agreed
+				scope, unless the client raises material issues within a reasonable time.
+			</p>
+			<p>
+				Revisions are limited to those defined in the engagement. Additional revisions may
+				require additional fees.
+			</p>
+		</section>
+
+		<section class="section">
+			<h2>8. Intellectual property</h2>
+			<p>
+				Unless otherwise agreed, final deliverables created specifically for the client
+				become the client’s property upon full payment.
+			</p>
+			<p>
+				VNTA retains ownership of pre-existing materials, methods, frameworks, working
+				files, and know-how, and grants the client a licence to use them as incorporated
+				into the final deliverables.
+			</p>
+		</section>
+
+		<section class="section">
+			<h2>9. Confidentiality</h2>
+			<p>
+				Both parties agree to keep confidential information private and not disclose it to
+				third parties, except where required by law or already in the public domain.
+			</p>
+		</section>
+
+		<section class="section">
+			<h2>10. Publicity & portfolio use</h2>
+			<p>
+				Unless otherwise agreed in writing, VNTA may reference the engagement and outcomes
+				in portfolios, case studies, credentials, and internal materials.
+			</p>
+		</section>
+
+		<section class="section">
+			<h2>11. Limitation of liability</h2>
+			<p>
+				VNTA is not liable for indirect, incidental, or consequential losses arising from
+				the engagement.
 			</p>
 			<p>
 				Any liability is limited to the fees paid for the specific engagement giving rise
-				to the claim.
+				to the claim, to the maximum extent permitted by law.
 			</p>
 		</section>
 
 		<section class="section">
-			<h2>8. Termination</h2>
+			<h2>12. Termination & suspension</h2>
 			<p>
 				Either party may terminate an engagement in accordance with the agreed contract
-				terms.
+				terms or written agreement.
 			</p>
 			<p>
-				Fees for work completed up to the termination date remain payable.
+				Fees for work completed up to the termination date remain payable. VNTA may suspend
+				work where payment obligations are not met.
 			</p>
 		</section>
 
 		<section class="section">
-			<h2>9. Governing Law</h2>
+			<h2>13. Governing law</h2>
 			<p>
-				These terms are governed by the laws of Ireland. Any disputes fall under the
-				exclusive jurisdiction of Irish courts.
+				These terms and any non-contractual disputes arising from them are governed by the
+				laws of Ireland. The courts of Ireland have exclusive jurisdiction.
 			</p>
 		</section>
 
 		<section class="section">
-			<h2>10. Contact</h2>
+			<h2>14. Contact</h2>
 			<p>
 				For questions regarding these terms, contact
-				<a href="mailto:studio@vnta.xyz">studio@vnta.xyz</a>.
+				<a class="inline-link" href="mailto:studio@vnta.xyz">studio@vnta.xyz</a>.
 			</p>
 		</section>
 	</div>
@@ -189,8 +236,13 @@
 		margin-bottom: 0;
 	}
 
-	.section a {
-		text-decoration: underline;
-		text-underline-offset: 3px;
+	.inline-link {
+		color: rgba(255, 255, 255, 0.85);
+		text-decoration: none;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+	}
+
+	.inline-link:hover {
+		border-bottom-color: rgba(255, 255, 255, 0.55);
 	}
 </style>
