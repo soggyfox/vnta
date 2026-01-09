@@ -193,17 +193,17 @@
 
 						<span class="status" aria-label="Status: Coming soon">{t('comingSoon')}</span>
 
-						<!-- Language toggle (aesthetic, global) -->
+						<!-- Language selector (Amazon-style subtle) -->
 						<button
 							type="button"
-							class="lang-btn"
+							class="lang-inline"
 							on:click={toggleLang}
 							aria-label={`Switch language to ${t('altLangLabel')}`}
 							title={`Switch to ${t('altLangLabel')}`}
 						>
-							<span class="lang-pill">{t('langLabel')}</span>
-							<span class="lang-sep" aria-hidden="true">·</span>
-							<span class="lang-next">{t('altLangLabel')}</span>
+							<span class:is-active={lang === 'en'}>EN</span>
+							<span class="lang-dot" aria-hidden="true">·</span>
+							<span class:is-active={lang === 'ga'}>GA</span>
 						</button>
 					</nav>
 
@@ -213,14 +213,14 @@
 
 						<button
 							type="button"
-							class="lang-btn lang-btn--mobile"
+							class="lang-inline lang-inline--mobile"
 							on:click={toggleLang}
 							aria-label={`Switch language to ${t('altLangLabel')}`}
 							title={`Switch to ${t('altLangLabel')}`}
 						>
-							<span class="lang-pill">{t('langLabel')}</span>
-							<span class="lang-sep" aria-hidden="true">·</span>
-							<span class="lang-next">{t('altLangLabel')}</span>
+							<span class:is-active={lang === 'en'}>EN</span>
+							<span class="lang-dot" aria-hidden="true">·</span>
+							<span class:is-active={lang === 'ga'}>GA</span>
 						</button>
 
 						<button
@@ -259,13 +259,13 @@
 							<div class="mobile__meta" aria-label="Language">
 								<button
 									type="button"
-									class="mobile__lang"
+									class="mobile__lang-inline"
 									on:click={toggleLang}
 									aria-label={`Switch language to ${t('altLangLabel')}`}
 								>
-									<span>{t('langLabel')}</span>
-									<span class="mobile__lang-dot" aria-hidden="true">·</span>
-									<span>{t('altLangLabel')}</span>
+									<span class:is-active={lang === 'en'}>EN</span>
+									<span class="lang-dot" aria-hidden="true">·</span>
+									<span class:is-active={lang === 'ga'}>GA</span>
 								</button>
 							</div>
 						</div>
@@ -324,7 +324,7 @@
 											<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
 												<path
 													fill="currentColor"
-													d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4Zm-4.5 4a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM17.75 6.1a1 1.0 0 1 1 0 2 1 1 0 0 1 0-2Z"
+													d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4Zm-4.5 4a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM17.75 6.1a1 1.0 0 0 1 0 2 1 1 0 0 1 0-2Z"
 												/>
 											</svg>
 										{:else}
@@ -503,47 +503,42 @@
 		white-space: nowrap;
 	}
 
-	/* Language toggle */
-	.lang-btn {
-		border: 1px solid rgba(255, 255, 255, 0.14);
-		background: rgba(255, 255, 255, 0.03);
-		color: rgba(255, 255, 255, 0.78);
-		border-radius: 999px;
-		padding: 8px 12px;
+	/* Language selector — Amazon-style subtle */
+	.lang-inline {
+		border: 0;
+		background: transparent;
+		padding: 0;
+		margin-left: 12px;
 		display: inline-flex;
 		align-items: center;
-		gap: 10px;
-		cursor: pointer;
-		transition: all 0.2s ease;
-		letter-spacing: 0.12em;
+		gap: 6px;
+		font-size: 0.75rem;
+		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		font-weight: 700;
+		color: rgba(255, 255, 255, 0.45);
+		cursor: pointer;
+	}
+
+	.lang-inline:hover {
+		color: rgba(255, 255, 255, 0.8);
+	}
+
+	.lang-inline span {
+		transition: color 0.15s ease, opacity 0.15s ease;
+	}
+
+	.lang-inline span.is-active {
+		color: rgba(255, 255, 255, 0.95);
+	}
+
+	.lang-dot {
+		color: rgba(255, 255, 255, 0.25);
+	}
+
+	.lang-inline--mobile {
+		margin-left: 0;
 		font-size: 0.72rem;
-	}
-
-	.lang-btn:hover {
-		border-color: rgba(255, 255, 255, 0.28);
-		background: rgba(255, 255, 255, 0.05);
-		transform: translateY(-1px);
-		color: rgba(255, 255, 255, 0.92);
-	}
-
-	.lang-pill {
-		color: rgba(255, 255, 255, 0.92);
-	}
-
-	.lang-sep {
-		color: rgba(255, 255, 255, 0.22);
-	}
-
-	.lang-next {
-		color: rgba(255, 255, 255, 0.55);
-	}
-
-	.lang-btn--mobile {
-		padding: 7px 10px;
-		font-size: 0.7rem;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.12em;
 	}
 
 	.mobile-controls {
@@ -634,33 +629,32 @@
 		border-top: 1px solid rgba(255, 255, 255, 0.08);
 	}
 
-	.mobile__lang {
+	.mobile__lang-inline {
 		width: 100%;
-		border: 1px solid rgba(255, 255, 255, 0.12);
-		background: rgba(255, 255, 255, 0.03);
-		color: rgba(255, 255, 255, 0.82);
-		border-radius: 14px;
-		padding: 12px 14px;
+		border: 0;
+		background: transparent;
+		color: rgba(255, 255, 255, 0.55);
+		border-radius: 12px;
+		padding: 10px 12px;
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		gap: 10px;
+		gap: 8px;
 		cursor: pointer;
-		letter-spacing: 0.12em;
+		letter-spacing: 0.14em;
 		text-transform: uppercase;
 		font-weight: 700;
 		font-size: 0.74rem;
-		transition: all 0.2s ease;
+		transition: color 0.15s ease, background 0.15s ease;
 	}
 
-	.mobile__lang:hover {
-		border-color: rgba(255, 255, 255, 0.24);
-		background: rgba(255, 255, 255, 0.05);
-		transform: translateY(-1px);
+	.mobile__lang-inline:hover {
+		color: rgba(255, 255, 255, 0.9);
+		background: rgba(255, 255, 255, 0.04);
 	}
 
-	.mobile__lang-dot {
-		color: rgba(255, 255, 255, 0.22);
+	.mobile__lang-inline span.is-active {
+		color: rgba(255, 255, 255, 0.98);
 	}
 
 	.mobile__backdrop {
