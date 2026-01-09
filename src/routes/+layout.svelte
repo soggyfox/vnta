@@ -18,11 +18,10 @@
 	// --- Language (EN / GA) ----------------------------------------------------
 	type Lang = 'en' | 'ga';
 	let lang = $state<Lang>('en');
+	let langOpen = $state(false);
 
 	const i18n = {
 		en: {
-			langLabel: 'EN',
-			altLangLabel: 'GA',
 			comingSoon: 'Coming Soon',
 			theStudio: 'The Studio',
 			explore: 'Explore',
@@ -38,11 +37,11 @@
 			careers: 'Careers',
 			legal: 'Legal',
 			privacy: 'Privacy',
-			terms: 'Terms'
+			terms: 'Terms',
+			langEnglish: 'English',
+			langIrish: 'Gaeilge'
 		},
 		ga: {
-			langLabel: 'GA',
-			altLangLabel: 'EN',
 			comingSoon: 'Go luath',
 			theStudio: 'An Stiúideo',
 			explore: 'Taiscéal',
@@ -58,14 +57,25 @@
 			careers: 'Gairmeacha',
 			legal: 'Dlí',
 			privacy: 'Príobháideachas',
-			terms: 'Téarmaí'
+			terms: 'Téarmaí',
+			langEnglish: 'Béarla',
+			langIrish: 'Gaeilge'
 		}
 	} as const;
 
 	const t = (k: keyof (typeof i18n)['en']) => i18n[lang][k];
 
-	function toggleLang() {
-		lang = lang === 'en' ? 'ga' : 'en';
+	function setLang(next: Lang) {
+		lang = next;
+		langOpen = false;
+	}
+
+	function toggleLangMenu() {
+		langOpen = !langOpen;
+	}
+
+	function closeLangMenu() {
+		langOpen = false;
 	}
 
 	// Persist + set document lang (client-only)
@@ -98,8 +108,6 @@
 	];
 
 	// Footer routes (internal)
-	// Primary footer should stay "meaningful" and quiet.
-	// Legal/compliance links belong in a low-contrast inline row beneath.
 	const footerNav = {
 		houses: { key: 'houses' as const, href: `${base}/houses` },
 		companyPrimary: [
@@ -114,7 +122,6 @@
 		]
 	};
 
-	// Founded 2025 → show range automatically
 	const foundedYear = 2025;
 	const year = new Date().getFullYear();
 	const yearLabel = year > foundedYear ? `${foundedYear}–${year}` : `${foundedYear}`;
@@ -130,7 +137,6 @@
 		mobileOpen = false;
 	}
 
-	// Only animate like "pages" for top-level tabs (and footer pages)
 	const tabRoutes = new Set([
 		'/about',
 		'/explore',
@@ -168,7 +174,6 @@
 				duration: shouldAnimate($page.url.pathname) ? 180 : 0
 			}}
 		>
-			<!-- GLOBAL HEADER -->
 			<header class="site-header" aria-label="VNTA header">
 				<div class="site-header__inner">
 					<a class="brand" href="{base}/" aria-label="VNTA home" on:click={closeMobile}>
@@ -178,7 +183,6 @@
 						</picture>
 					</a>
 
-					<!-- DESKTOP NAV -->
 					<nav class="nav" aria-label="Primary navigation">
 						{#each nav as item}
 							<a
@@ -193,35 +197,64 @@
 
 						<span class="status" aria-label="Status: Coming soon">{t('comingSoon')}</span>
 
-						<!-- Language selector (Amazon-style subtle) -->
-						<button
-							type="button"
-							class="lang-inline"
-							on:click={toggleLang}
-							aria-label={`Switch language to ${t('altLangLabel')}`}
-							title={`Switch to ${t('altLangLabel')}`}
-						>
-							<span class:is-active={lang === 'en'}>EN</span>
-							<span class="lang-dot" aria-hidden="true">·</span>
-							<span class:is-active={lang === 'ga'}>GA</span>
-						</button>
+						<!-- Language dropdown (Amazon-style) -->
+						<div class="lang-wrap">
+							<button
+								type="button"
+								class="lang-trigger"
+								on:click={toggleLangMenu}
+								aria-label="Change language"
+								aria-expanded={langOpen}
+							>
+								<!-- Globe / translate icon -->
+								<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+									<path
+										fill="currentColor"
+										d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm7.93 9h-3.11a15.8 15.8 0 0 0-1.3-5.02A8.02 8.02 0 0 1 19.93 11ZM12 4c.9 0 2.32 2.03 3.1 7H8.9C9.68 6.03 11.1 4 12 4ZM4.07 13h3.11c.18 1.8.64 3.54 1.3 5.02A8.02 8.02 0 0 1 4.07 13Zm3.11-2H4.07a8.02 8.02 0 0 1 4.41-5.02A15.8 15.8 0 0 0 7.18 11ZM12 20c-.9 0-2.32-2.03-3.1-7h6.2c-.78 4.97-2.2 7-3.1 7Zm3.52-1.98c.66-1.48 1.12-3.22 1.3-5.02h3.11a8.02 8.02 0 0 1-4.41 5.02Z"
+									/>
+								</svg>
+
+								<span class="lang-code">{lang === 'en' ? 'EN' : 'GA'}</span>
+							</button>
+
+							{#if langOpen}
+								<div class="lang-menu" role="menu" aria-label="Language menu">
+									<button
+										type="button"
+										class="lang-item"
+										role="menuitemradio"
+										aria-checked={lang === 'en'}
+										on:click={() => setLang('en')}
+									>
+										<span class="lang-item__label">{t('langEnglish')}</span>
+										<span class="lang-item__meta">EN</span>
+									</button>
+
+									<button
+										type="button"
+										class="lang-item"
+										role="menuitemradio"
+										aria-checked={lang === 'ga'}
+										on:click={() => setLang('ga')}
+									>
+										<span class="lang-item__label">{t('langIrish')}</span>
+										<span class="lang-item__meta">GA</span>
+									</button>
+								</div>
+
+								<!-- click-outside backdrop -->
+								<button
+									type="button"
+									class="lang-backdrop"
+									aria-label="Close language menu"
+									on:click={closeLangMenu}
+								/>
+							{/if}
+						</div>
 					</nav>
 
-					<!-- MOBILE CONTROLS -->
 					<div class="mobile-controls">
 						<span class="status status--mobile" aria-label="Status: Coming soon">{t('comingSoon')}</span>
-
-						<button
-							type="button"
-							class="lang-inline lang-inline--mobile"
-							on:click={toggleLang}
-							aria-label={`Switch language to ${t('altLangLabel')}`}
-							title={`Switch to ${t('altLangLabel')}`}
-						>
-							<span class:is-active={lang === 'en'}>EN</span>
-							<span class="lang-dot" aria-hidden="true">·</span>
-							<span class:is-active={lang === 'ga'}>GA</span>
-						</button>
 
 						<button
 							type="button"
@@ -239,7 +272,6 @@
 					</div>
 				</div>
 
-				<!-- MOBILE DROPDOWN -->
 				{#if mobileOpen}
 					<div class="mobile" role="dialog" aria-label="Menu">
 						<div class="mobile__panel">
@@ -257,16 +289,24 @@
 							</nav>
 
 							<div class="mobile__meta" aria-label="Language">
-								<button
-									type="button"
-									class="mobile__lang-inline"
-									on:click={toggleLang}
-									aria-label={`Switch language to ${t('altLangLabel')}`}
-								>
-									<span class:is-active={lang === 'en'}>EN</span>
-									<span class="lang-dot" aria-hidden="true">·</span>
-									<span class:is-active={lang === 'ga'}>GA</span>
-								</button>
+								<div class="mobile__lang">
+									<button
+										type="button"
+										class="mobile__lang-item"
+										aria-pressed={lang === 'en'}
+										on:click={() => setLang('en')}
+									>
+										English <span class="mobile__lang-code">EN</span>
+									</button>
+									<button
+										type="button"
+										class="mobile__lang-item"
+										aria-pressed={lang === 'ga'}
+										on:click={() => setLang('ga')}
+									>
+										Gaeilge <span class="mobile__lang-code">GA</span>
+									</button>
+								</div>
 							</div>
 						</div>
 
@@ -275,19 +315,15 @@
 				{/if}
 			</header>
 
-			<!-- PAGE CONTENT -->
 			<main class="site-main">
 				{@render children()}
 			</main>
 
-			<!-- GLOBAL FOOTER (primary: meaning / secondary: compliance) -->
 			<footer class="site-footer" aria-label="VNTA footer">
 				<div class="site-footer__inner">
-					<!-- Slogan / mark -->
 					<p class="footer-slogan">Áilleacht na Díomhaointe.</p>
 
 					<div class="footer-grid">
-						<!-- Lineage -->
 						<div class="footer-col" aria-label="Lineage">
 							<p class="footer-title">{t('lineage')}</p>
 
@@ -296,7 +332,6 @@
 							</a>
 						</div>
 
-						<!-- The Company (primary only) -->
 						<div class="footer-col" aria-label="The Company">
 							<p class="footer-title">{t('theCompany')}</p>
 
@@ -307,7 +342,6 @@
 							</div>
 						</div>
 
-						<!-- Contact + socials -->
 						<div class="footer-col" aria-label="Contact">
 							<p class="footer-title">{t('contact')}</p>
 
@@ -341,7 +375,6 @@
 						</div>
 					</div>
 
-					<!-- Secondary legal row -->
 					<div class="footer-bottom">
 						<p class="footer-copy">© {yearLabel} Vantanéant International Ltd.</p>
 
@@ -423,7 +456,6 @@
 		flex: 1 0 auto;
 	}
 
-	/* HEADER (reduced height) */
 	.site-header {
 		position: sticky;
 		top: 0;
@@ -503,42 +535,100 @@
 		white-space: nowrap;
 	}
 
-	/* Language selector — Amazon-style subtle */
-	.lang-inline {
-		border: 0;
-		background: transparent;
-		padding: 0;
-		margin-left: 12px;
+	/* Language dropdown */
+	.lang-wrap {
+		position: relative;
 		display: inline-flex;
 		align-items: center;
-		gap: 6px;
-		font-size: 0.75rem;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: rgba(255, 255, 255, 0.45);
+		/* critical: keep clickable above any weird overlays */
+		z-index: 70;
+	}
+
+	.lang-trigger {
+		border: 0;
+		background: transparent;
+		color: rgba(255, 255, 255, 0.55);
 		cursor: pointer;
+		padding: 10px 8px;
+		border-radius: 12px;
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 0.74rem;
+		line-height: 1;
+		transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
 	}
 
-	.lang-inline:hover {
-		color: rgba(255, 255, 255, 0.8);
+	.lang-trigger:hover {
+		color: rgba(255, 255, 255, 0.9);
+		background: rgba(255, 255, 255, 0.04);
+		transform: translateY(-1px);
 	}
 
-	.lang-inline span {
-		transition: color 0.15s ease, opacity 0.15s ease;
+	.lang-code {
+		color: rgba(255, 255, 255, 0.75);
 	}
 
-	.lang-inline span.is-active {
+	.lang-menu {
+		position: absolute;
+		right: 0;
+		top: calc(100% + 10px);
+		min-width: 210px;
+		border-radius: 16px;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: rgba(0, 0, 0, 0.92);
+		backdrop-filter: blur(10px);
+		box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+		overflow: hidden;
+		z-index: 80;
+	}
+
+	.lang-item {
+		width: 100%;
+		border: 0;
+		background: transparent;
+		color: rgba(255, 255, 255, 0.82);
+		padding: 14px 14px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		cursor: pointer;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+
+	.lang-item:hover {
+		background: rgba(255, 255, 255, 0.06);
 		color: rgba(255, 255, 255, 0.95);
 	}
 
-	.lang-dot {
-		color: rgba(255, 255, 255, 0.25);
+	.lang-item[aria-checked='true'] {
+		background: rgba(255, 255, 255, 0.06);
+		color: rgba(255, 255, 255, 0.98);
 	}
 
-	.lang-inline--mobile {
-		margin-left: 0;
-		font-size: 0.72rem;
-		letter-spacing: 0.12em;
+	.lang-item__label {
+		font-weight: 650;
+		letter-spacing: 0.02em;
+	}
+
+	.lang-item__meta {
+		font-size: 0.75rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: rgba(255, 255, 255, 0.5);
+	}
+
+	.lang-backdrop {
+		position: fixed;
+		inset: 0;
+		background: transparent;
+		border: 0;
+		z-index: 75;
+		cursor: default;
 	}
 
 	.mobile-controls {
@@ -629,32 +719,38 @@
 		border-top: 1px solid rgba(255, 255, 255, 0.08);
 	}
 
-	.mobile__lang-inline {
-		width: 100%;
-		border: 0;
-		background: transparent;
-		color: rgba(255, 255, 255, 0.55);
-		border-radius: 12px;
-		padding: 10px 12px;
+	.mobile__lang {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 10px;
+	}
+
+	.mobile__lang-item {
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: rgba(255, 255, 255, 0.03);
+		color: rgba(255, 255, 255, 0.82);
+		border-radius: 14px;
+		padding: 12px 12px;
 		display: inline-flex;
 		align-items: center;
-		justify-content: center;
-		gap: 8px;
+		justify-content: space-between;
+		gap: 10px;
 		cursor: pointer;
+		transition: all 0.2s ease;
+		font-weight: 650;
+	}
+
+	.mobile__lang-item[aria-pressed='true'] {
+		border-color: rgba(255, 255, 255, 0.28);
+		background: rgba(255, 255, 255, 0.06);
+		color: rgba(255, 255, 255, 0.96);
+	}
+
+	.mobile__lang-code {
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
-		font-weight: 700;
-		font-size: 0.74rem;
-		transition: color 0.15s ease, background 0.15s ease;
-	}
-
-	.mobile__lang-inline:hover {
-		color: rgba(255, 255, 255, 0.9);
-		background: rgba(255, 255, 255, 0.04);
-	}
-
-	.mobile__lang-inline span.is-active {
-		color: rgba(255, 255, 255, 0.98);
+		color: rgba(255, 255, 255, 0.55);
+		font-size: 0.78rem;
 	}
 
 	.mobile__backdrop {
@@ -666,7 +762,6 @@
 		cursor: default;
 	}
 
-	/* FOOTER (editorial columns) */
 	.site-footer {
 		margin-top: 56px;
 		padding-top: 22px;
@@ -765,7 +860,6 @@
 		color: rgba(255, 255, 255, 0.95);
 	}
 
-	/* Secondary row */
 	.footer-bottom {
 		margin-top: 18px;
 		padding-top: 14px;
