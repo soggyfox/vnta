@@ -15,11 +15,81 @@
 	// Svelte 5 runes (SvelteKit 2)
 	let mobileOpen = $state(false);
 
+	// --- Language (EN / GA) ----------------------------------------------------
+	type Lang = 'en' | 'ga';
+	let lang = $state<Lang>('en');
+
+	const i18n = {
+		en: {
+			langLabel: 'EN',
+			altLangLabel: 'GA',
+			comingSoon: 'Coming Soon',
+			theStudio: 'The Studio',
+			explore: 'Explore',
+			packages: 'Packages',
+			lineage: 'Lineage',
+			houses: 'Houses',
+			theCompany: 'The Company',
+			approach: 'Approach',
+			horizon: 'Horizon',
+			contact: 'Contact',
+			emailUs: 'Email Us',
+			selectedWork: 'Selected client work available on request.',
+			careers: 'Careers',
+			legal: 'Legal',
+			privacy: 'Privacy',
+			terms: 'Terms'
+		},
+		ga: {
+			langLabel: 'GA',
+			altLangLabel: 'EN',
+			comingSoon: 'Go luath',
+			theStudio: 'An Stiúideo',
+			explore: 'Taiscéal',
+			packages: 'Pacáistí',
+			lineage: 'Oidhreacht',
+			houses: 'Tithe',
+			theCompany: 'An Chuideachta',
+			approach: 'Cur Chuige',
+			horizon: 'Léaslíne',
+			contact: 'Teagmháil',
+			emailUs: 'Seol Ríomhphost',
+			selectedWork: 'Obair roghnaithe do chliaint ar fáil ar iarratas.',
+			careers: 'Gairmeacha',
+			legal: 'Dlí',
+			privacy: 'Príobháideachas',
+			terms: 'Téarmaí'
+		}
+	} as const;
+
+	const t = (k: keyof (typeof i18n)['en']) => i18n[lang][k];
+
+	function toggleLang() {
+		lang = lang === 'en' ? 'ga' : 'en';
+	}
+
+	// Persist + set document lang (client-only)
+	$effect(() => {
+		if (typeof window === 'undefined') return;
+
+		const stored = window.localStorage.getItem('vnta_lang');
+		if (stored === 'en' || stored === 'ga') lang = stored;
+
+		document.documentElement.lang = lang;
+	});
+
+	$effect(() => {
+		if (typeof window === 'undefined') return;
+		window.localStorage.setItem('vnta_lang', lang);
+		document.documentElement.lang = lang;
+	});
+	// ---------------------------------------------------------------------------
+
 	// Minimal header tabs (soft launch): keep core only
 	const nav = [
-		{ label: 'The Studio', href: `${base}/about` },
-		{ label: 'Explore', href: `${base}/explore` },
-		{ label: 'Packages', href: `${base}/pricing` }
+		{ key: 'theStudio' as const, href: `${base}/about` },
+		{ key: 'explore' as const, href: `${base}/explore` },
+		{ key: 'packages' as const, href: `${base}/pricing` }
 	];
 
 	const socials = [
@@ -31,16 +101,16 @@
 	// Primary footer should stay "meaningful" and quiet.
 	// Legal/compliance links belong in a low-contrast inline row beneath.
 	const footerNav = {
-		houses: { label: 'Houses', href: `${base}/houses` },
+		houses: { key: 'houses' as const, href: `${base}/houses` },
 		companyPrimary: [
-			{ label: 'Approach', href: `${base}/approach` },
-			{ label: 'Horizon', href: `${base}/horizon` }
+			{ key: 'approach' as const, href: `${base}/approach` },
+			{ key: 'horizon' as const, href: `${base}/horizon` }
 		],
 		legalInline: [
-			{ label: 'Careers', href: `${base}/careers` },
-			{ label: 'Legal', href: `${base}/legal` },
-			{ label: 'Privacy', href: `${base}/privacy` },
-			{ label: 'Terms', href: `${base}/terms` }
+			{ key: 'careers' as const, href: `${base}/careers` },
+			{ key: 'legal' as const, href: `${base}/legal` },
+			{ key: 'privacy' as const, href: `${base}/privacy` },
+			{ key: 'terms' as const, href: `${base}/terms` }
 		]
 	};
 
@@ -117,16 +187,41 @@
 								href={item.href}
 								aria-current={isActive(item.href) ? 'page' : undefined}
 							>
-								{item.label}
+								{t(item.key)}
 							</a>
 						{/each}
 
-						<span class="status" aria-label="Status: Coming soon">Coming Soon</span>
+						<span class="status" aria-label="Status: Coming soon">{t('comingSoon')}</span>
+
+						<!-- Language toggle (aesthetic, global) -->
+						<button
+							type="button"
+							class="lang-btn"
+							on:click={toggleLang}
+							aria-label={`Switch language to ${t('altLangLabel')}`}
+							title={`Switch to ${t('altLangLabel')}`}
+						>
+							<span class="lang-pill">{t('langLabel')}</span>
+							<span class="lang-sep" aria-hidden="true">·</span>
+							<span class="lang-next">{t('altLangLabel')}</span>
+						</button>
 					</nav>
 
 					<!-- MOBILE CONTROLS -->
 					<div class="mobile-controls">
-						<span class="status status--mobile" aria-label="Status: Coming soon">Coming Soon</span>
+						<span class="status status--mobile" aria-label="Status: Coming soon">{t('comingSoon')}</span>
+
+						<button
+							type="button"
+							class="lang-btn lang-btn--mobile"
+							on:click={toggleLang}
+							aria-label={`Switch language to ${t('altLangLabel')}`}
+							title={`Switch to ${t('altLangLabel')}`}
+						>
+							<span class="lang-pill">{t('langLabel')}</span>
+							<span class="lang-sep" aria-hidden="true">·</span>
+							<span class="lang-next">{t('altLangLabel')}</span>
+						</button>
 
 						<button
 							type="button"
@@ -156,10 +251,23 @@
 										href={item.href}
 										on:click={closeMobile}
 									>
-										{item.label}
+										{t(item.key)}
 									</a>
 								{/each}
 							</nav>
+
+							<div class="mobile__meta" aria-label="Language">
+								<button
+									type="button"
+									class="mobile__lang"
+									on:click={toggleLang}
+									aria-label={`Switch language to ${t('altLangLabel')}`}
+								>
+									<span>{t('langLabel')}</span>
+									<span class="mobile__lang-dot" aria-hidden="true">·</span>
+									<span>{t('altLangLabel')}</span>
+								</button>
+							</div>
 						</div>
 
 						<button type="button" class="mobile__backdrop" aria-label="Close menu" on:click={closeMobile} />
@@ -181,33 +289,33 @@
 					<div class="footer-grid">
 						<!-- Lineage -->
 						<div class="footer-col" aria-label="Lineage">
-							<p class="footer-title">Lineage</p>
+							<p class="footer-title">{t('lineage')}</p>
 
 							<a class="footer-link" href={footerNav.houses.href}>
-								<span>Houses</span>
+								<span>{t(footerNav.houses.key)}</span>
 							</a>
 						</div>
 
 						<!-- The Company (primary only) -->
 						<div class="footer-col" aria-label="The Company">
-							<p class="footer-title">The Company</p>
+							<p class="footer-title">{t('theCompany')}</p>
 
 							<div class="footer-links">
 								{#each footerNav.companyPrimary as l}
-									<a class="footer-link footer-link--plain" href={l.href}>{l.label}</a>
+									<a class="footer-link footer-link--plain" href={l.href}>{t(l.key)}</a>
 								{/each}
 							</div>
 						</div>
 
 						<!-- Contact + socials -->
 						<div class="footer-col" aria-label="Contact">
-							<p class="footer-title">Contact</p>
+							<p class="footer-title">{t('contact')}</p>
 
 							<a class="footer-link footer-link--plain" href="mailto:studio@vnta.xyz" aria-label="Email VNTA">
-								Email Us
+								{t('emailUs')}
 							</a>
 
-							<p class="footer-muted">Selected client work available on request.</p>
+							<p class="footer-muted">{t('selectedWork')}</p>
 
 							<div class="footer-socials" aria-label="Social links">
 								{#each socials as s}
@@ -239,7 +347,7 @@
 
 						<nav class="footer-legal" aria-label="Legal links">
 							{#each footerNav.legalInline as l, i}
-								<a class="footer-legal-link" href={l.href}>{l.label}</a>
+								<a class="footer-legal-link" href={l.href}>{t(l.key)}</a>
 								{#if i < footerNav.legalInline.length - 1}
 									<span class="footer-legal-dot" aria-hidden="true">·</span>
 								{/if}
@@ -395,6 +503,49 @@
 		white-space: nowrap;
 	}
 
+	/* Language toggle */
+	.lang-btn {
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		background: rgba(255, 255, 255, 0.03);
+		color: rgba(255, 255, 255, 0.78);
+		border-radius: 999px;
+		padding: 8px 12px;
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 0.72rem;
+	}
+
+	.lang-btn:hover {
+		border-color: rgba(255, 255, 255, 0.28);
+		background: rgba(255, 255, 255, 0.05);
+		transform: translateY(-1px);
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.lang-pill {
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.lang-sep {
+		color: rgba(255, 255, 255, 0.22);
+	}
+
+	.lang-next {
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	.lang-btn--mobile {
+		padding: 7px 10px;
+		font-size: 0.7rem;
+		letter-spacing: 0.1em;
+	}
+
 	.mobile-controls {
 		display: none;
 		align-items: center;
@@ -476,6 +627,40 @@
 	.mobile__link.is-active {
 		background: rgba(255, 255, 255, 0.06);
 		color: rgba(255, 255, 255, 0.98);
+	}
+
+	.mobile__meta {
+		padding: 10px 12px 12px;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.mobile__lang {
+		width: 100%;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		background: rgba(255, 255, 255, 0.03);
+		color: rgba(255, 255, 255, 0.82);
+		border-radius: 14px;
+		padding: 12px 14px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		cursor: pointer;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		font-weight: 700;
+		font-size: 0.74rem;
+		transition: all 0.2s ease;
+	}
+
+	.mobile__lang:hover {
+		border-color: rgba(255, 255, 255, 0.24);
+		background: rgba(255, 255, 255, 0.05);
+		transform: translateY(-1px);
+	}
+
+	.mobile__lang-dot {
+		color: rgba(255, 255, 255, 0.22);
 	}
 
 	.mobile__backdrop {
