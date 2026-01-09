@@ -16,6 +16,7 @@
 	let mobileOpen = $state(false);
 
 	// --- Language (EN / GA) ----------------------------------------------------
+	// Honest note: modern standard spelling is **Gaeilge** (no fada). "Gaéilge" is an older/less common variant.
 	type Lang = 'en' | 'ga';
 	let lang = $state<Lang>('en');
 	let langOpen = $state(false);
@@ -206,7 +207,7 @@
 								aria-label="Change language"
 								aria-expanded={langOpen}
 							>
-								<!-- Globe / translate icon -->
+								<!-- Globe icon -->
 								<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
 									<path
 										fill="currentColor"
@@ -242,7 +243,6 @@
 									</button>
 								</div>
 
-								<!-- click-outside backdrop -->
 								<button
 									type="button"
 									class="lang-backdrop"
@@ -456,6 +456,15 @@
 		flex: 1 0 auto;
 	}
 
+	/* Force pointer events on header (your requested debug fix) */
+	.site-header {
+		pointer-events: auto;
+	}
+
+	.site-header * {
+		pointer-events: auto;
+	}
+
 	.site-header {
 		position: sticky;
 		top: 0;
@@ -540,7 +549,6 @@
 		position: relative;
 		display: inline-flex;
 		align-items: center;
-		/* critical: keep clickable above any weird overlays */
 		z-index: 70;
 	}
 
